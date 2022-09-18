@@ -4,7 +4,56 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<form id="Home">
+    <div class="form-group">
+        <div class="tiles__grid">
+            <div class="tiles__wrapper">
+                <a class="tiles__item" id="Organise">
+                    <img class="tiles__icon" src="/lib/bootstrap/icons/joystick.svg" alt="Bootstrap" css-class="tiles__icon" />
+                    <div class=tiles__border>
+                        <h1 class="tiles__text">
+                            <span>Organise a Game</span>
+                        </h1>
+                    </div>
+                </a>
+                <a class="tiles__item" id="Library">
+                    <img class="tiles__icon" src="/lib/bootstrap/icons/book.svg" alt="Bootstrap" css-class="tiles__icon" />
+                    <div class=tiles__border>
+                        <h1 class="tiles__text">
+                            <span>Library</span>
+                        </h1>
+                    </div>
+                </a>
+                <a class="tiles__item" id="Locations">
+                    <img class="tiles__icon" src="/lib/bootstrap/icons/pin-map.svg" alt="Bootstrap" css-class="tiles__icon" />
+                    <div class=tiles__border>
+                        <h1 class="tiles__text">
+                            <span>Locations</span>
+                        </h1>
+                    </div>
+                </a>
+                <a class="tiles__item" id="Profile">
+                    <img class="tiles__icon" src="/lib/bootstrap/icons/file-earmark-person.svg" alt="Bootstrap" css-class="tiles__icon" />
+                    <div class=tiles__border>
+                        <h1 class="tiles__text">
+                            <span>Profile</span>
+                        </h1>
+                    </div>
+                </a>
+                <a class="tiles__item" id="Settings">
+                    <img class="tiles__icon" src="/lib/bootstrap/icons/gear.svg" alt="Bootstrap" css-class="tiles__icon" />
+                    <div class=tiles__border>
+                        <h1 class="tiles__text">
+                            <span>Settings</span>
+                        </h1>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/Index.js" asp-append-version="true"></script>
+}
