@@ -48,4 +48,37 @@ app.UseSession();
 
 app.MapRazorPages();
 
+// Middleware to Redirect && Update interaction
+app.Use(async (ctx, next) =>
+{
+    ISessionManager sessionManager = ctx.RequestServices.GetRequiredService<ISessionManager>();
+
+    List<string> AnnoymousPages = new()
+    {
+        "/",
+        "/Index",
+        "/Account/ConfirmEmail",
+        "/Account/ForgotPassword",
+        "/Account/ForgotPasswordConfirmation",
+        "/Account/Lockout",
+        "/Account/Login",
+        "/Account/Logout",
+        "/Account/Register",
+        "/Account/RegisterConfirmation",
+        "/Account/ResendEmailConfirmation",
+        "/Account/ResetPassword",
+        "/Account/ResetPasswordConfirmation"
+    };
+
+    if (sessionManager.HandleSession(!AnnoymousPages.Contains(ctx.Request.Path.Value ?? string.Empty)))
+    {
+        ctx.Response.Redirect("/Account/Login");
+        return;
+    }
+
+    sessionManager.UpdateSessionInteraction();
+
+    await next();
+});
+
 app.Run();

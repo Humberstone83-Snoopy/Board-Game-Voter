@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\BoardGameVoter",
+    "\\BoardGameVoter\\BoardGameVoter"
   ],
+  "SelectedNode": "\\BoardGameVoter\\BoardGameVoter.sln",
   "PreviewInSolutionExplorer": false
 }
