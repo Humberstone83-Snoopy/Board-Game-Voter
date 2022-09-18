@@ -83,12 +83,6 @@ namespace BoardGameVoter.Pages.Account
         [BindProperty]
         public int Age { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare(otherProperty: "Password", ErrorMessage = "The password and confirmation password do not match.")]
-        [BindProperty]
-        public string ConfirmPassword { get; set; }
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -112,6 +106,12 @@ namespace BoardGameVoter.Pages.Account
         [Display(Name = "Password")]
         [BindProperty]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare(otherProperty: "Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [BindProperty]
+        public string PasswordConfirm { get; set; }
 
         public string? ReturnUrl { get; set; }
     }
