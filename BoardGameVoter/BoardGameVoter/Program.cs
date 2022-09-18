@@ -16,8 +16,8 @@ builder.Services.AddSession(options =>
 });
 
 // DBContexts
-builder.Services.AddDbContext<UserDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection")));
-builder.Services.AddDbContext<UserSessionDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection")));
+builder.Services.AddDbContext<UserDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
+builder.Services.AddDbContext<UserSessionDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 
 // Transient Services
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
