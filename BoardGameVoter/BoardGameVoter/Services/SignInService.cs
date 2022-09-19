@@ -1,6 +1,6 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Logic.LoginManagers;
-using BoardGameVoter.Logic.UserManagers;
+using BoardGameVoter.Logic.Users;
 
 namespace BoardGameVoter.Services
 {

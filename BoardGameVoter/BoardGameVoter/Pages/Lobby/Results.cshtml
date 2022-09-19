@@ -1,0 +1,37 @@
+﻿@page "{VoteSessionUID}"
+@using BoardGameVoter.Models.EntityModels
+@model ResultsModel
+@{
+    ViewData["Title"] = "Results";
+}
+<form id="ResultsForm" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <table id="ResultTable" class="table table-striped table-bordered dt-responsive">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Publisher</th>
+                <th>Players</th>
+                <th>Playtime</th>
+        </thead>
+        <tbody>
+            @{
+                foreach (LibraryGame _Result in Model.LibraryGames)
+                {
+                    <tr>
+                        <td>@_Result.BoardGame.Title</td>
+                        <td>@_Result.BoardGame.Description</td>
+                        <td>@_Result.BoardGame.Publisher</td>
+                        <td>@_Result.BoardGame.MinimumPlayers - @_Result.BoardGame.MaximumPlayers</td>
+                        <td>@_Result.BoardGame.MinimumPlayTime - @_Result.BoardGame.MaxPlayTime Mins</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <a href="/Lobby/Details/@Model.VoteSessionUID" class="btn btn-primary">Back</a>
+</form>
+@section Scripts {
+    <script src="~/js/Lobby/Results.js" asp-append-version="true"></script>
+}

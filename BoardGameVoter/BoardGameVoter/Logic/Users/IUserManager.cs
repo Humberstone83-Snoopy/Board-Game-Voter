@@ -1,7 +1,7 @@
 ﻿using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
 
-namespace BoardGameVoter.Logic.UserManagers
+namespace BoardGameVoter.Logic.Users
 {
     public interface IUserManager
     {

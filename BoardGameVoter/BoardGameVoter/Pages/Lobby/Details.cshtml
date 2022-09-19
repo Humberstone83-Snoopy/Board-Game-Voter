@@ -1,0 +1,79 @@
+﻿@page "{VoteSessionUID}"
+@using BoardGameVoter.Models.EntityModels
+@model DetailsModel
+@{
+    ViewData["Title"] = "Game Details";
+}
+<form id="DetailsForm" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <section>
+                <h3>Attendees</h3>
+                @{
+                    foreach (VoteSessionAttendee attendee in Model.Attendees)
+                    {
+                        <h4>@attendee.User.FirstName  @attendee.User.LastName (@attendee.VotesRemaining)</h4>
+                    }
+                }
+            </section>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h3>Settings</h3>
+                <h4>Game Date: @Model.VoteSession.GameDate</h4>
+                <h4>Location: @Model.Location.Name</h4>
+                <h5>Address: @Model.Location.Address</h5>
+                <br />
+                @{
+                    if (@Model.VoteSession.IsPublic)
+                    {
+                        <h4>Public Session: <img class='table__icon--positive' src='/lib/bootstrap/icons/check-circle.svg' /></h4>
+                    }
+                    else
+                    {
+                        <h4>Public Session: <img class='table__icon--negative' src='/lib/bootstrap/icons/x-circle.svg' /></h4>
+                    }
+                    if (@Model.VoteSession.IsVotingOpen)
+                    {
+                        <h4>Voting Open: <img class='table__icon--positive' src='/lib/bootstrap/icons/check-circle.svg' /></h4>
+                    }
+                    else
+                    {
+                        <h4>Voting Open: <img class='table__icon--negative' src='/lib/bootstrap/icons/x-circle.svg' /></h4>
+                    }
+                }
+                <br />
+                <br />
+                <h3>My Details</h3>
+                <h4>UserName: @Model.MyDetails.User.UserName</h4>
+                <h4>Remaining Votes: @Model.MyDetails.VotesRemaining</h4>
+                @{
+                    if (@Model.MyDetails.VotesRemaining > 0 && @Model.VoteSession.IsVotingOpen)
+                    {
+                        <a href="/Lobby/Vote/@Model.VoteSession.UID" class="btn btn-primary">Vote</a>
+                    }
+                    else if (!@Model.VoteSession.IsVotingOpen)
+                    {
+                        <a href="/Lobby/Results/@Model.VoteSession.UID" class="btn btn-primary">View Results</a>
+                    }
+                    if (@Model.VoteSession.HostUserID == @Model.UserManager.User.ID && @Model.VoteSession.IsVotingOpen)
+                    {
+                        <button id="CloseVote" class="btn btn-primary">Close Vote</button>
+                        <button id="DeleteSession" class="btn btn-secondary">Cancel Event</button>
+                    }
+                    else
+                    {
+                        <button id="DeleteAttendee" class="btn btn-secondary">Not Attending</button>
+                    }
+                }
+                <a href="/lobby" class="btn btn-secondary">Back</a>
+            </section>
+        </div>
+    </div>
+    <input type="hidden" asp-for="VoteSessionUID" value="@Model.VoteSessionUID" />
+    <input type="hidden" asp-for="Action" value="@Model.Action" />
+</form>
+@section Scripts{
+    <script src="~/js/Lobby/Details.js" asp-append-version="true"></script>
+}

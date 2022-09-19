@@ -1,5 +1,5 @@
 ﻿using BoardGameVoter.Logic.LoginManagers;
-using BoardGameVoter.Logic.UserManagers;
+using BoardGameVoter.Logic.Users;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

@@ -1,0 +1,49 @@
+﻿@page "{VoteSessionUID}"
+@using BoardGameVoter.Models.EntityModels
+@model InviteModel
+@{
+    ViewData["Title"] = "Invite Friends";
+}
+<form id="InviteForm" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <section>
+                <div class="form-group">
+                    <label asp-for="SelectedUser"></label>
+                    <select id="UserSelect" asp-for="SelectedUser" asp-items="@(new SelectList(Model.Users, nameof(BoardGameVoter.Models.EntityModels.User.UID), nameof(BoardGameVoter.Models.EntityModels.User.FirstName)))" class="form-control">
+                        <option>Invite User...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="Add" class="btn btn-primary">Add</button>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h3>Players</h3>
+                @{
+                    bool IsHost = true;
+                    foreach (User user in Model.InvitedUsers)
+                    {
+                        if (IsHost)
+                        {
+                            user.FirstName += " (Host)";
+                            IsHost = false;
+                        }
+                        <h2>@user.FirstName</h2>
+                    }
+                }
+            </section>
+        </div>
+        <div class="form-group">
+            <button id="Complete" class="btn btn-primary">Complete</button>
+        </div>
+    </div>
+    <input type="hidden" asp-for="VoteSessionUID" value="@Model.VoteSessionUID" />
+    <input type="hidden" asp-for="Action" value="@Model.Action" />
+</form>
+@section Scripts{
+    <script src="~/js/Lobby/Invite.js" asp-append-version="true"></script>
+}

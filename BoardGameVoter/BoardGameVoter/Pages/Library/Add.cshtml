@@ -1,0 +1,56 @@
+﻿@page
+@using BoardGameVoter.Models.Enums
+@model AddModel
+@{
+    ViewData["Title"] = "Add New";
+}
+<form id="AddNew" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input id="TitleInput" asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button id="Find" class="btn btn-primary">Find Game</button>
+        <p>@Model.ErrorMessage</p>
+    </div>
+    <div class="form-group">
+        <label asp-for="Publisher"></label>
+        <input id="PublisherInput" asp-for="Publisher" class="form-control" readonly="@Model.DisableInputs" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input id="DescriptionInput" asp-for="Description" class="form-control" readonly="@Model.DisableInputs" />
+    </div>
+    <div class="form-group">
+        @if (Model.DisableInputs)
+        {
+            <input type="hidden" asp-for="LearningDifficulty" value="@Model.LearningDifficulty" />
+        }
+        <label asp-for="LearningDifficulty"></label>
+        <select id="DifficultySelect" asp-for="LearningDifficulty" asp-items="Html.GetEnumSelectList<Difficulty>()" class="form-control" disabled="@Model.DisableInputs">
+            <option>Select difficulty ...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="MinimumPlayers"></label>
+        <input id="MinPlayersInput" asp-for="MinimumPlayers" class="form-control" readonly="@Model.DisableInputs" />
+        <label asp-for="MaximumPlayers"></label>
+        <input id="MaxPlayersInput" asp-for="MaximumPlayers" class="form-control" readonly="@Model.DisableInputs" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MinimumPlayTime"></label>
+        <input id="MinPlayTimeInput" asp-for="MinimumPlayTime" class="form-control" readonly="@Model.DisableInputs" />
+        <label asp-for="MaxPlayTime"></label>
+        <input id="MaxPlayTimeInput" asp-for="MaxPlayTime" class="form-control" readonly="@Model.DisableInputs" />
+    </div>
+    <div class="form-group">
+        <button id="Complete" class="btn btn-primary">Complete</button>
+        <button id="Clear" class="btn btn-secondary">Clear</button>
+    </div>
+    <input type="hidden" asp-for="Action" value="@Model.Action" />
+    <input type="hidden" asp-for="DisableInputs" value="@Model.DisableInputs" />
+</form>
+@section Scripts{
+    <script src="~/js/Library/Add.js" asp-append-version="true"></script>
+}

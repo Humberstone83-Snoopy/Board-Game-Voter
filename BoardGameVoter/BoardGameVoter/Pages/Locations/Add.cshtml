@@ -1,0 +1,42 @@
+﻿@page
+@model AddModel
+@{
+    ViewData["Title"] = "Add New";
+}
+<form id="AddNew" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input id="NameInput" asp-for="Name" class="form-control" />
+        <p>@Model.ErrorMessage</p>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address1"></label>
+        <input id="Address1Input" asp-for="Address1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address2"></label>
+        <input id="Address2Input" asp-for="Address2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address3"></label>
+        <input id="Address3Input" asp-for="Address3" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Postcode"></label>
+        <input id="PostcodeInput" asp-for="Postcode" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Cost"></label>
+        <input id="CostInput" asp-for="Cost" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button type="submit" id="Complete" class="btn btn-primary">Complete</button>
+        <button id="Clear" class="btn btn-secondary">Clear</button>
+        <button id="Cancel" class="btn btn-secondary">Cancel</button>
+    </div>
+    <input type="hidden" asp-for="Action" value="@Model.Action" />
+</form>
+@section Scripts{
+    <script src="~/js/Locations/Add.js" asp-append-version="true"></script>
+}

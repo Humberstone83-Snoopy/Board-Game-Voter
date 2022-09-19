@@ -1,0 +1,34 @@
+﻿@page
+@using BoardGameVoter.Models.EntityModels
+@model AddModel
+@{
+    ViewData["Title"] = "Add New";
+}
+<form id="NewGameForm" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="GameDate"></label>
+        <input id="Date" type="date" asp-for="GameDate" class="form-control" />
+        <span asp-validation-for="GameDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsPrivate"></label>
+        <input id="Active" type="checkbox" asp-for="IsPrivate" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <select id="LocationSelect" asp-for="Location" asp-items="@(new SelectList(Model.Locations, nameof(Location.UID), nameof(Location.Name)))" class="form-control">
+            <option>Please Select...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button id="Cancel" class="btn btn-secondary">Cancel</button>
+    </div>
+    <input type="hidden" asp-for="VoteSessionUID" value="@Model.VoteSessionUID" />
+    <input type="hidden" asp-for="Action" value="@Model.Action" />
+</form>
+@section Scripts{
+    <script src="~/js/Lobby/Add.js" asp-append-version="true"></script>
+}
+

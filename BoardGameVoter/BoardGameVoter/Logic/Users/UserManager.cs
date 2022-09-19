@@ -4,7 +4,7 @@ using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys;
 using BoardGameVoter.Services;
 
-namespace BoardGameVoter.Logic.UserManagers
+namespace BoardGameVoter.Logic.Users
 {
     public class UserManager : IUserManager
     {

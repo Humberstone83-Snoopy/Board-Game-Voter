@@ -1,0 +1,51 @@
+﻿@page "{VoteSessionUID}"
+@using BoardGameVoter.Models.TableModels
+@model VoteModel
+@{
+    ViewData["Title"] = "Cast Votes";
+}
+<form id="VoteForm" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <h1 id="RemainingVotesLabel">@Model.RemainingVotes.ToString() Remaining</h1>
+    <table id="VoteTable" class="table table-striped table-bordered dt-responsive">
+        <thead>
+            <tr>
+                <th>RowNumber</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Publisher</th>
+                <th>Players</th>
+                <th>Playtime</th>
+                <th>Owner</th>
+                <th>Votes</th>
+                <th>Assign</th>
+        </thead>
+        <tbody>
+            @{
+                foreach (VoteTableModel _Game in Model.VoteTableModels)
+                {
+                    <tr>
+                        <td>@_Game.RowNumber</td>
+                        <td>@_Game.Title</td>
+                        <td>@_Game.Description</td>
+                        <td>@_Game.Publisher</td>
+                        <td>@_Game.Players</td>
+                        <td>@_Game.Playtime</td>
+                        <td>@_Game.Owner</td>
+                        <td>@_Game.Votes</td>
+                        <td><input asp-for="@Model.Votes[_Game.RowNumber]" min="0" /></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Complete</button>
+    <h3>@Model.ErrorMessage</h3>
+    <input type="hidden" asp-for="VoteSessionUID" value="@Model.VoteSessionUID" />
+    <input type="hidden" asp-for="TotalRowCount" value="@Model.TotalRowCount" />
+    <input type="hidden" asp-for="RemainingVotes" value="@Model.RemainingVotes" />
+    <input type="hidden" asp-for="Action" value="@Model.Action" />
+</form>
+@section Scripts{
+    <script src="~/js/Lobby/Vote.js" asp-append-version="true"></script>
+}

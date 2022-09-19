@@ -1,0 +1,41 @@
+﻿@page
+@using BoardGameVoter.Models.TableModels
+@model IndexModel
+@{
+    ViewData["Title"] = "Public Lobby";
+}
+<h1>@ViewData["Title"]</h1>
+<a href="/Lobby/Add" class="btn btn-primary">New Session</a>
+<form id="InviteForm" method="post">
+    <table id="PublicLobbyTable" class="table table-striped table-bordered dt-responsive">
+        <thead>
+            <tr>
+                <th>SessionID</th>
+                <th>Date</th>
+                <th>Host</th>
+                <th>Location</th>
+                <th>Attendees</th>
+                <th>Votes</th>
+                <th>Join</th>
+        </thead>
+        <tbody>
+            @{
+                foreach (LobbyTableModel _Session in Model.PublicLobby)
+                {
+                    <tr>
+                        <td>@_Session.VoteSession.ID</td>
+                        <td>@_Session.VoteSession.GameDate</td>
+                        <td>@_Session.Host.FirstName @_Session.Host.LastName</td>
+                        <td>@_Session.Location.Name</td>
+                        <td>@_Session.Attendees.Count()</td>
+                        <td>@_Session.VoteSession.VotesCast</td>
+                        <td><a href="/Lobby/Details/@_Session.VoteSession.UID" class="btn btn-primary">Join</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</form>
+@section Scripts{
+    <script src="~/js/lobby/Index.js" asp-append-version="true"></script>
+}
