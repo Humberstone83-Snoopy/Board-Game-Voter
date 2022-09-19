@@ -41,6 +41,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "LigerShark.WebOptimizer.Sass": {
+              "target": "Package",
+              "version": "[3.0.91, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.0-rc.1.22426.7, )"

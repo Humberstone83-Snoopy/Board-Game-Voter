@@ -1,0 +1,193 @@
+﻿body {
+    /*background-color: #383F51;*/
+}
+
+a, a:link, a:visited, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.table {
+    &__icon-container {
+        display: flex;
+    }
+
+    &__icon--positive {
+        position: inherit;
+        height: 2rem;
+        width: 2rem;
+        filter: invert(54%) sepia(88%) saturate(396%) hue-rotate(98deg) brightness(105%) contrast(86%);
+        margin-left: auto;
+        margin-right: auto;
+        align-content: center;
+    }
+
+    &__icon--negative {
+        position: inherit;
+        height: 2rem;
+        width: 2rem;
+        filter: invert(14%) sepia(77%) saturate(6665%) hue-rotate(358deg) brightness(106%) contrast(113%);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.tiles {
+
+    &__grid {
+        box-sizing: border-box;
+        height: 100%;
+        background: #336633;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+    }
+
+    &__item {
+        width: 12rem;
+        height: 10rem;
+        background: #3C4F76;
+        float: left;
+        margin: 2rem;
+        border-style: solid;
+        border-block-color: #DDDBF1;
+        border-width: 0.20rem;
+        text-decoration: none;
+        text-decoration-color: inherit;
+    }
+
+    &__border {
+        //
+        padding: 0.5rem;
+        display: grid;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+        grid-template-columns: max-content auto;
+        grid-template-rows: auto max-content;
+
+        &:before,
+        &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #AB9F9D;
+        }
+
+        &:before {
+            grid-row: 1 / 2;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        &:after {
+            grid-row: 1 / span 2;
+            border-left: none;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        left: inherit;
+        top: inherit;
+        z-index: 1;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        padding-top: 1rem;
+        padding-left: 3.5rem;
+        height: 7rem;
+        width: 8rem;
+        filter: invert(.7);
+    }
+
+    &__text {
+        font-weight: normal;
+        font-size: 1rem;
+        position: relative;
+        padding-top: 7rem; // test was 1rem
+        padding-left: 0.5rem;
+        color: #DDDBF1;
+    }
+    /* title styles */
+    &__text span {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        line-height: 1.2;
+        color: #DDDBF1;
+    }
+
+    &__text span:link {
+        color: #DDDBF1;
+    }
+
+    &__text span:visited {
+        color: #DDDBF1;
+    }
+
+    &__text span:hover {
+        color: #DDDB91; //yellowish colour
+    }
+
+    &__text span:active {
+        color: #DDDB01; //slightly darker yellow
+    }
+
+    &__text span::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #3C4F76;
+        animation: a-ltr-after 2s cubic-bezier(.77,0,.18,1) forwards;
+        transform: translateX(-101%);
+    }
+
+    &__text span::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-color);
+        animation: a-ltr-before 2s cubic-bezier(.77,0,.18,1) forwards;
+        transform: translateX(0);
+    }
+
+    &__text span:nth-of-type(1)::before,
+    &__text span:nth-of-type(1)::after {
+        animation-delay: 1s;
+    }
+
+    &__text span:nth-of-type(2)::before,
+    &__text span:nth-of-type(2)::after {
+        animation-delay: 1.5s;
+    }
+
+    @keyframes a-ltr-after {
+        0% {
+            transform: translateX(-100%)
+        }
+
+        100% {
+            transform: translateX(101%)
+        }
+    }
+
+    @keyframes a-ltr-before {
+        0% {
+            transform: translateX(0)
+        }
+
+        100% {
+            transform: translateX(200%)
+        }
+    }
+}

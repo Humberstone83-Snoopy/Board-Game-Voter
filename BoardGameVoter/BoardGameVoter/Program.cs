@@ -15,6 +15,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//Configure Scss
+builder.Services.AddWebOptimizer(pipeline =>
+{
+    pipeline.AddScssBundle("/css/all.css", "/css/BGV.scss");
+});
+
 // DBContexts
 builder.Services.AddDbContext<BoardGameDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 builder.Services.AddDbContext<EmailConfirmationTokenDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
