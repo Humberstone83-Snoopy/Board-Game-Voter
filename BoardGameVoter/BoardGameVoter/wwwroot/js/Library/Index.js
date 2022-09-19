@@ -4,7 +4,6 @@
     $(document).ready(function () {
         var userLibrary = $('#userLibraryDatatable').dataTable({
             "processing": true,
-            "serverSide": true,
             "filter": true,
             "columnDefs": [{
                 "targets": [0],

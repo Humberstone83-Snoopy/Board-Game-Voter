@@ -80,3 +80,4 @@ C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVo
 C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\libman.json
