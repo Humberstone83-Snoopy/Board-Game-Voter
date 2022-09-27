@@ -1,7 +1,7 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Locations;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

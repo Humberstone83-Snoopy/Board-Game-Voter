@@ -1,6 +1,9 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Models.EntityModels.BoardGames;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
+using BoardGameVoter.Repositorys.BoardGames;
+using BoardGameVoter.Repositorys.VoteSessions;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {
@@ -13,12 +16,12 @@ namespace BoardGameVoter.Logic.VoteSessions
         private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
         private readonly VoteSessionRepository __VoteSessionRepository;
 
-        public VoteSessionManager(VoteSessionDBContext voteSessionDBContext, VoteSessionAttendeeDBContext voteSessionAttendeeDBContext, VoteDBContext voteDBContext,
-            VoteSessionResultDBContext voteSessionResultDBContext, UserDBContext userDBContext, LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+        public VoteSessionManager(VoteSessionDBContext voteSessionDBContext, UserDBContext userDBContext, 
+            LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
         {
             __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionAttendeeDBContext);
-            __VoteManager = new VoteManager(voteSessionDBContext, voteSessionAttendeeDBContext, voteDBContext, voteSessionResultDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext);
+            __VoteManager = new VoteManager(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
             __BoardGameRepository = new BoardGameRepository(boardGameDBContext);
         }
 
@@ -48,7 +51,7 @@ namespace BoardGameVoter.Logic.VoteSessions
                     int _WinningGameID = __VoteManager.CalculateLeadingGame(voteSession);
                     LibraryGame _ChosenGame = __VoteManager.CreateResult(voteSession.ID, _WinningGameID);
                     BoardGame _GameDetails = __BoardGameRepository.GetByID(_ChosenGame.BoardGameID);
-                    MaxPlayers += _GameDetails.MaximumPlayers;
+                    MaxPlayers += _GameDetails.MaximumPlayers ?? _GameDetails.MinimumPlayers;
                 }
                 __VoteManager.ArchiveRemainingVotes(voteSession);
             }

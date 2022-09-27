@@ -22,7 +22,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSession", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Vote", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -30,8 +30,35 @@ namespace BoardGameVoter.data.migrations.VoteSession
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("ChosenGameID")
+                    b.Property<int>("LibraryGameID")
                         .HasColumnType("int");
+
+                    b.Property<int>("NumberOfVotes")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("VoteSessionAttendeeID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoteSessionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("VoteSessionID");
+
+                    b.ToTable("Votes");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSession", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime>("GameDate")
                         .HasColumnType("datetime2");
@@ -45,6 +72,9 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.Property<bool>("IsVotingOpen")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("LeadGameID")
+                        .HasColumnType("int");
+
                     b.Property<int>("LocationID")
                         .HasColumnType("int");
 
@@ -57,6 +87,90 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.HasKey("ID");
 
                     b.ToTable("VoteSessions");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionAttendee", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoteSessionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VotesRemaining")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("VoteSessionID");
+
+                    b.ToTable("VoteSessionAttendees");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionResult", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("LibraryGameID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("VoteSessionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("VoteSessionID");
+
+                    b.ToTable("VoteSessionResults");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Vote", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSession", "VoteSession")
+                        .WithMany()
+                        .HasForeignKey("VoteSessionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VoteSession");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionAttendee", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSession", "VoteSession")
+                        .WithMany()
+                        .HasForeignKey("VoteSessionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VoteSession");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionResult", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSession", "VoteSession")
+                        .WithMany()
+                        .HasForeignKey("VoteSessionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VoteSession");
                 });
 #pragma warning restore 612, 618
         }

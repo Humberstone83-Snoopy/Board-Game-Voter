@@ -1,8 +1,10 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Models.Enums;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.BoardGames;
+using BoardGameVoter.Repositorys.Library;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -84,13 +86,13 @@ namespace BoardGameVoter.Pages.Library
         {
             Nickname = LibraryGame.Name;
             Title = BoardGame.Title;
-            Description = BoardGame.Description;
-            LearningDifficulty = BoardGame.LearningDifficulty;
-            MaximumPlayers = BoardGame.MaximumPlayers;
+            Description = BoardGame.Description_Short;
+            GameWeight = BoardGame.Weight ?? Weight.Undefined;
+            MaximumPlayers = BoardGame.MaximumPlayers ?? MinimumPlayers;
             MinimumPlayers = BoardGame.MinimumPlayers;
-            MaxPlayTime = BoardGame.MaxPlayTime;
-            MinimumPlayTime = BoardGame.MinimumPlayTime;
-            Publisher = BoardGame.Publisher;
+            MaximumPlayTime = BoardGame.MaximumPlayTime ?? 0;
+            MinimumPlayTime = BoardGame.MinimumPlayTime ?? 0;
+            Publisher = BoardGame.Publisher ?? string.Empty;
             IsActive = LibraryGame.IsAvailable;
         }
 
@@ -98,9 +100,9 @@ namespace BoardGameVoter.Pages.Library
         {
             if (ModelState.IsValid)
             {
-                if (BoardGame.LearningDifficulty != LearningDifficulty)
+                if (BoardGame.Weight != GameWeight)
                 {
-                    BoardGame.LearningDifficulty = LearningDifficulty;
+                    BoardGame.Weight = GameWeight;
                     __BoardGameRepository.Update(BoardGame);
                 }
                 LibraryGame.Name = Nickname;
@@ -124,13 +126,13 @@ namespace BoardGameVoter.Pages.Library
 
         [BindProperty]
         [Required]
-        [Display(Name = "Active")]
-        public bool IsActive { get; set; }
+        [Display(Name = "Weight")]
+        public Weight GameWeight { get; set; }
 
         [BindProperty]
         [Required]
-        [Display(Name = "Difficulty")]
-        public Difficulty LearningDifficulty { get; set; }
+        [Display(Name = "Active")]
+        public bool IsActive { get; set; }
 
         public LibraryGame LibraryGame { get; private set; }
 
@@ -145,7 +147,7 @@ namespace BoardGameVoter.Pages.Library
         [BindProperty]
         [Required]
         [Display(Name = "Maximum Play Time")]
-        public int MaxPlayTime { get; set; }
+        public int MaximumPlayTime { get; set; }
 
         [BindProperty]
         [Required]

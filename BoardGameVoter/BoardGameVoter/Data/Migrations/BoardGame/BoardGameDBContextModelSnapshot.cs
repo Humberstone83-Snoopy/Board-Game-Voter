@@ -30,28 +30,62 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("AgeRating")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LearningDifficulty")
+                    b.Property<string>("Description_Long")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description_Short")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MaximumPlayTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaxPlayTime")
+                    b.Property<int?>("MaximumPlayers")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaximumPlayers")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinimumPlayTime")
+                    b.Property<int?>("MinimumPlayTime")
                         .HasColumnType("int");
 
                     b.Property<int>("MinimumPlayers")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PrimaryCategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PrimaryMechanismID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PrimaryTypeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Publisher")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("ReleaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("SecondaryCategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SecondaryMechanismID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SecondaryTypeID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TertiaryCategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TertiaryMechanismID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -60,9 +94,139 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.Property<Guid>("UID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("Weight")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
+                    b.HasIndex("PrimaryCategoryID");
+
+                    b.HasIndex("PrimaryMechanismID");
+
+                    b.HasIndex("PrimaryTypeID");
+
+                    b.HasIndex("SecondaryCategoryID");
+
+                    b.HasIndex("SecondaryMechanismID");
+
+                    b.HasIndex("SecondaryTypeID");
+
+                    b.HasIndex("TertiaryCategoryID");
+
+                    b.HasIndex("TertiaryMechanismID");
+
                     b.ToTable("BoardGames");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGameCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BoardGameCategories");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGameMechanism", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BoardGameMechanisms");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGameType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BoardGameTypes");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGame", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameCategory", "PrimaryCategory")
+                        .WithMany()
+                        .HasForeignKey("PrimaryCategoryID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameMechanism", "PrimaryMechanism")
+                        .WithMany()
+                        .HasForeignKey("PrimaryMechanismID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameType", "PrimaryType")
+                        .WithMany()
+                        .HasForeignKey("PrimaryTypeID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameCategory", "SecondaryCategory")
+                        .WithMany()
+                        .HasForeignKey("SecondaryCategoryID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameMechanism", "SecondaryMechanism")
+                        .WithMany()
+                        .HasForeignKey("SecondaryMechanismID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameType", "SecondaryType")
+                        .WithMany()
+                        .HasForeignKey("SecondaryTypeID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameCategory", "TertiaryCategory")
+                        .WithMany()
+                        .HasForeignKey("TertiaryCategoryID");
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGameMechanism", "TertiaryMechanism")
+                        .WithMany()
+                        .HasForeignKey("TertiaryMechanismID");
+
+                    b.Navigation("PrimaryCategory");
+
+                    b.Navigation("PrimaryMechanism");
+
+                    b.Navigation("PrimaryType");
+
+                    b.Navigation("SecondaryCategory");
+
+                    b.Navigation("SecondaryMechanism");
+
+                    b.Navigation("SecondaryType");
+
+                    b.Navigation("TertiaryCategory");
+
+                    b.Navigation("TertiaryMechanism");
                 });
 #pragma warning restore 612, 618
         }

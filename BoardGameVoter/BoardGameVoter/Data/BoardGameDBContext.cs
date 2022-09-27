@@ -1,5 +1,5 @@
 ﻿using BoardGameVoter.Data.Shared;
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.BoardGames;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Data
@@ -9,5 +9,9 @@ namespace BoardGameVoter.Data
         public BoardGameDBContext(DbContextOptions<BoardGameDBContext> options) : base(options)
         {
         }
+
+        public DbSet<BoardGameCategory> CategoryData { get; set; }
+        public DbSet<BoardGameMechanism> MechanismData { get; set; }
+        public DbSet<BoardGameType> TypeData { get; set; }
     }
 }

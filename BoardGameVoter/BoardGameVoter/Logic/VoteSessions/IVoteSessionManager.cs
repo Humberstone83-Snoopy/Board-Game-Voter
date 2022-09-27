@@ -1,4 +1,4 @@
-﻿using BoardGameVoter.Models.EntityModels;
+﻿using BoardGameVoter.Models.EntityModels.VoteSessions;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {

@@ -1,7 +1,9 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Library;
+using BoardGameVoter.Repositorys.VoteSessions;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {
@@ -13,20 +15,19 @@ namespace BoardGameVoter.Logic.VoteSessions
         private readonly VoteSessionRepository __VoteSessionRepository;
         private readonly VoteSessionResultRepository __VoteSessionResultRepository;
 
-        public VoteManager(VoteSessionDBContext voteSessionDBContext, VoteSessionAttendeeDBContext voteSessionAttendeeDBContext,
-            VoteDBContext voteDBContext, VoteSessionResultDBContext voteSessionResultDBContext, UserDBContext userDBContext,
+        public VoteManager(VoteSessionDBContext voteSessionDBContext, UserDBContext userDBContext,
             LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
         {
             __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionAttendeeDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
-            __VoteSessionResultRepository = new VoteSessionResultRepository(voteSessionResultDBContext);
-            __VoteRepository = new VoteRepository(voteDBContext);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
+            __VoteSessionResultRepository = new VoteSessionResultRepository(voteSessionDBContext);
+            __VoteRepository = new VoteRepository(voteSessionDBContext);
             __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext);
         }
 
         public void ArchiveRemainingVotes(VoteSession voteSession)
         {
-            List<LibraryGame> _LibraryGames = __LibraryGameRepository.GetAll();
+            List<LibraryGame> _LibraryGames = __LibraryGameRepository.GetAll().ToList();
             List<LibraryGame> _GamesToUpdate = new();
             List<Vote> _Votes = __VoteRepository.GetByVoteSessionID(voteSession.ID);
 
@@ -140,10 +141,10 @@ namespace BoardGameVoter.Logic.VoteSessions
                                 LibraryGameID = _Game.ID,
                                 LibraryGameUID = _Game.UID,
                                 Title = _Game.BoardGame.Title,
-                                Description = _Game.BoardGame.Description,
+                                Description = _Game.BoardGame.Description_Short,
                                 Publisher = _Game.BoardGame.Publisher,
                                 Players = $"{_Game.BoardGame.MinimumPlayers}-{_Game.BoardGame.MaximumPlayers}",
-                                Playtime = $"{_Game.BoardGame.MinimumPlayTime}-{_Game.BoardGame.MaxPlayTime}mins",
+                                Playtime = $"{_Game.BoardGame.MinimumPlayTime}-{_Game.BoardGame.MaximumPlayTime}mins",
                                 Owner = $"{_Attendee.User.FirstName} {_Attendee.User.LastName}",
                                 Votes = CalculateVotes(_Game, _Votes),
                                 RowNumber = _RowNumber
@@ -192,7 +193,7 @@ namespace BoardGameVoter.Logic.VoteSessions
                     __VoteRepository.Add(_Vote);
                     __VoteSessionAttendeeRepository.Update(attendee);
                 }
-                _CurrentSession.ChosenGameID = CalculateLeadingGame(_CurrentSession);
+                _CurrentSession.LeadGameID = CalculateLeadingGame(_CurrentSession);
                 __VoteSessionRepository.Update(_CurrentSession);
 
             }

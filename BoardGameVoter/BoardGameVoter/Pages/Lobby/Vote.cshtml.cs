@@ -1,9 +1,9 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Logic.VoteSessions;
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.VoteSessions;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,16 +18,14 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
 
         public VoteModel(ISessionManager sessionManager, ILogger<VoteModel> logger, ISignInService service,
-            VoteSessionDBContext voteSessionDBContext, VoteSessionAttendeeDBContext voteSessionAttendeeDBContext,
-            VoteDBContext voteDBContext, UserDBContext userDBContext, VoteSessionResultDBContext voteSessionResultDBContext,
-            LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+            VoteSessionDBContext voteSessionDBContext, LibraryGameDBContext libraryGameDbContext, 
+            BoardGameDBContext boardGameDBContext, UserDBContext userDBContext)
 
             : base(sessionManager, logger, service)
         {
-            __VoteManager = new VoteManager(voteSessionDBContext, voteSessionAttendeeDBContext, voteDBContext,
-                voteSessionResultDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
+            __VoteManager = new VoteManager(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
             __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionAttendeeDBContext);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext);
         }
 
         public IActionResult OnGet()

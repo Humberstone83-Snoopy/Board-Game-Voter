@@ -1,5 +1,5 @@
 ﻿using BoardGameVoter.Data.Shared;
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Data
@@ -9,5 +9,9 @@ namespace BoardGameVoter.Data
         public VoteSessionDBContext(DbContextOptions<VoteSessionDBContext> options) : base(options)
         {
         }
+
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<VoteSessionAttendee> VoteSessionAttendees { get; set; }
+        public DbSet<VoteSessionResult> VoteSessionResults { get; set; }
     }
 }

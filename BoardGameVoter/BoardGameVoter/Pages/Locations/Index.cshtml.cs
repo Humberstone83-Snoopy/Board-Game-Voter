@@ -1,7 +1,7 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Locations;
 using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Pages.Locations
@@ -19,7 +19,7 @@ namespace BoardGameVoter.Pages.Locations
 
         public void OnGet()
         {
-            Locations = __LocationRepository.GetAll();
+            Locations = __LocationRepository.GetAll().ToList();
         }
 
         public List<Location> Locations { get; set; }

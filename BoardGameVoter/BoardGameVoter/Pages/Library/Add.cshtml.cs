@@ -1,8 +1,10 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Models.Enums;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.BoardGames;
+using BoardGameVoter.Repositorys.Library;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -34,10 +36,10 @@ namespace BoardGameVoter.Pages.Library
             BoardGame _BoardGame = new BoardGame()
             {
                 Title = Title,
-                Description = Description,
-                LearningDifficulty = LearningDifficulty,
+                Description_Short = Description,
+                Weight = GameWeight,
                 MaximumPlayers = MaximumPlayers,
-                MaxPlayTime = MaxPlayTime,
+                MaximumPlayTime = MaximumPlayTime,
                 MinimumPlayers = MinimumPlayers,
                 MinimumPlayTime = MinimumPlayTime,
                 Publisher = Publisher,
@@ -104,14 +106,14 @@ namespace BoardGameVoter.Pages.Library
                     _FoundExactMatch = true;
 
                     Title = BoardGame.Title;
-                    Description = BoardGame.Description;
-                    LearningDifficulty = BoardGame.LearningDifficulty;
-                    MaximumPlayers = BoardGame.MaximumPlayers;
+                    Description = BoardGame.Description_Short;
+                    GameWeight = BoardGame.Weight ?? Weight.Undefined;
+                    MaximumPlayers = BoardGame.MaximumPlayers ?? MinimumPlayers;
                     MinimumPlayers = BoardGame.MinimumPlayers;
-                    MaxPlayTime = BoardGame.MaxPlayTime;
-                    MinimumPlayTime = BoardGame.MinimumPlayTime;
-                    Publisher = BoardGame.Publisher;
-
+                    MaximumPlayTime = BoardGame.MaximumPlayTime ?? 0;
+                    MinimumPlayTime = BoardGame.MinimumPlayTime ?? 0;
+                    Publisher = BoardGame.Publisher ?? string.Empty;
+                    // should not disable null fields, allow to be updated. 
                     DisableInputs = true;
                 }
             }
@@ -162,8 +164,8 @@ namespace BoardGameVoter.Pages.Library
 
         [BindProperty]
         [Required]
-        [Display(Name = "Difficulty")]
-        public Difficulty LearningDifficulty { get; set; }
+        [Display(Name = "Weight")]
+        public Weight GameWeight { get; set; }
 
         [BindProperty]
         [Required]
@@ -173,7 +175,7 @@ namespace BoardGameVoter.Pages.Library
         [BindProperty]
         [Required]
         [Display(Name = "Maximum Play Time")]
-        public int MaxPlayTime { get; set; }
+        public int MaximumPlayTime { get; set; }
 
         [BindProperty]
         [Required]

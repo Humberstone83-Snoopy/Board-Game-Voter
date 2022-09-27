@@ -1,8 +1,10 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Logic.VoteSessions;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Locations;
+using BoardGameVoter.Repositorys.VoteSessions;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,15 +23,14 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
 
         public DetailsModel(ISessionManager sessionManager, ILogger<DetailsModel> logger, ISignInService service,
-            VoteSessionDBContext voteSessionDBContext, VoteSessionAttendeeDBContext voteSessionAttendeeDBContext,
-            LocationDBContext locationDBContext, UserDBContext userDBContext, LibraryGameDBContext libraryGameDbContext,
-            BoardGameDBContext boardGameDBContext, VoteDBContext voteDBContext, VoteSessionResultDBContext voteSessionResultDBContext)
+            VoteSessionDBContext voteSessionDBContext, LocationDBContext locationDBContext,
+            UserDBContext userDBContext, LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
             : base(sessionManager, logger, service)
         {
             __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionAttendeeDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
             __LocationRepository = new LocationRepository(locationDBContext);
-            __VoteSessionManager = new VoteSessionManager(voteSessionDBContext, voteSessionAttendeeDBContext, voteDBContext, voteSessionResultDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
+            __VoteSessionManager = new VoteSessionManager(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
         }
 
         private void HandleAction()

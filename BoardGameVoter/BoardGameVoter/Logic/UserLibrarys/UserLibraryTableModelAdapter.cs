@@ -18,10 +18,10 @@ namespace BoardGameVoter.Logic.UserLibrarys
                         ID = libraryGame.ID,
                         IsAvailable = libraryGame.IsAvailable,
                         Title = libraryGame.Name,
-                        Description = libraryGame.BoardGame.Description,
+                        Description = libraryGame.BoardGame.Description_Short,
                         Publisher = libraryGame.BoardGame.Publisher,
                         Players = $"{libraryGame.BoardGame.MinimumPlayers}-{libraryGame.BoardGame.MaximumPlayers}",
-                        Playtime = $"{libraryGame.BoardGame.MinimumPlayTime}-{libraryGame.BoardGame.MaxPlayTime} mins",
+                        Playtime = $"{libraryGame.BoardGame.MinimumPlayTime}-{libraryGame.BoardGame.MaximumPlayTime} mins",
                         UID = libraryGame.UID
                     });
                 }

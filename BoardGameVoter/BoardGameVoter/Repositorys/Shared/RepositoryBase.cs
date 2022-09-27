@@ -1,22 +1,56 @@
 ﻿using BoardGameVoter.Data.Shared;
 using BoardGameVoter.Models.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Repositorys.Shared
 {
-    public abstract class RepositoryBase<T> : IRepositoryBase<T>
-        where T : EntityBase
+    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, TEntity, RepositoryLoadOptions>
+        where TEntity : EntityBase
+    {
+        protected RepositoryBase(DbContextBase<TEntity> dbContext) 
+            : base(dbContext)
+        {
+        }
+    }
+
+    public abstract class RepositoryBase<TEntity, TLoadOptions> : RepositoryBase<TEntity, TEntity, TLoadOptions>
+        where TEntity : EntityBase
+        where TLoadOptions : RepositoryLoadOptions, new()
+    {
+        protected RepositoryBase(DbContextBase<TEntity> dbContext) 
+            : base(dbContext)
+        {
+        }
+
+        protected RepositoryBase(DbContextBase<TEntity> dbContext, TLoadOptions loadWithOptions) 
+            : base(dbContext, loadWithOptions)
+        {
+        }
+    }
+
+    public abstract class RepositoryBase<TEntity, TContextEntity, TLoadOptions> : IRepositoryBase<TEntity, TLoadOptions>
+        where TEntity : EntityBase
+        where TContextEntity : EntityBase
+        where TLoadOptions : RepositoryLoadOptions, new()
     {
 
-        private DbContextBase<T> __DBContext;
+        private DbContextBase<TContextEntity> __DBContext;
+        private TLoadOptions __LoadWith;
 
-        public RepositoryBase(DbContextBase<T> dbContext)
+        public RepositoryBase(DbContextBase<TContextEntity> dbContext)
         {
             __DBContext = dbContext;
         }
 
-        public Guid Add(T entity)
+        public RepositoryBase(DbContextBase<TContextEntity> dbContext, TLoadOptions loadWithOptions)
         {
-            if (entity == null) { throw new ArgumentNullException("Entity can not be null", nameof(entity)); }
+            __DBContext = dbContext;
+            __LoadWith = loadWithOptions;
+        }
+
+        public TEntity? Add(TEntity entity)
+        {
+            if (entity == null) { throw new ArgumentNullException(nameof(entity), "Entity can not be null"); }
             try
             {
                 if (entity.UID == Guid.Empty)
@@ -24,69 +58,136 @@ namespace BoardGameVoter.Repositorys.Shared
                     entity.UID = Guid.NewGuid();
                 }
 
-                __DBContext.Data.Add(entity);
-                __DBContext.SaveChanges();
-                return entity.UID;
+                DBContext.Add(entity);
+                DBContext.SaveChanges();
+                return entity;
             }
             catch
             {
-                return Guid.Empty;
+                return null;
             }
         }
 
-        public void Add(List<T> entityList)
+        public IEnumerable<TEntity>? Add(IEnumerable<TEntity> entityList)
         {
-            __DBContext.Data.AddRange(entityList);
-            __DBContext.SaveChanges();
-        }
-
-        public void Delete(T entity)
-        {
-            __DBContext.Data.Remove(entity);
-            __DBContext.SaveChanges();
-        }
-
-        public void Delete(List<T> entityList)
-        {
-            __DBContext.Data.RemoveRange(entityList);
-            __DBContext.SaveChanges();
-        }
-
-        public List<T> GetAll()
-        {
-            return __DBContext.Data.ToList();
-        }
-
-        public T GetByID(int id)
-        {
-            return __DBContext.Data.Find(id);
-        }
-
-        public List<T> GetByID(IEnumerable<int> idList)
-        {
-            return __DBContext.Data.Where(entity => idList.Contains(entity.ID)).ToList();
-        }
-
-        public T GetByUID(Guid uid)
-        {
-            return __DBContext.Data.FirstOrDefault(entity => entity.UID.CompareTo(uid) == 0);
-        }
-
-        public void Update(T entity)
-        {
-            __DBContext.Update(entity);
-            __DBContext.SaveChanges();
-        }
-
-        public void Update(List<T> entityList)
-        {
-            foreach (T entity in entityList)
+            if (entityList == null) { throw new ArgumentNullException(nameof(entityList), "Entity List can not be null"); }
+            try
             {
-                __DBContext.Update(entity);
+                foreach (TEntity entity in entityList)
+                {
+                    if (entity.UID == Guid.Empty)
+                    {
+                        entity.UID = Guid.NewGuid();
+                    }
+                }
+                DBContext.AddRange(entityList);
+                DBContext.SaveChanges();
+                return entityList;
             }
-            __DBContext.SaveChanges();
+            catch
+            {
+                return null;
+            }
         }
 
-        internal DbContextBase<T> DBContext { get => __DBContext; }
+        public bool Delete(TEntity entity)
+        {
+            try
+            {
+                DBContext.Remove(entity);
+                DBContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(IEnumerable<TEntity> entityList)
+        {
+            try
+            {
+                DBContext.RemoveRange(entityList);
+                DBContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public IEnumerable<TEntity> GetAll()
+        {
+            return Data.ToList();
+        }
+
+        public TEntity? GetByID(int id)
+        {
+            return Data.Find(id);
+        }
+
+        public IEnumerable<TEntity> GetByID(IEnumerable<int> idList)
+        {
+            return Data.Where(entity => idList.Contains(entity.ID));
+        }
+
+        public TEntity? GetByUID(Guid uid)
+        {
+            return Data.FirstOrDefault(entity => entity.UID.CompareTo(uid) == 0);
+        }
+
+        public bool Update(TEntity entity)
+        {
+            try
+            {
+                DBContext.Update(entity);
+                DBContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Update(IEnumerable<TEntity> entityList)
+        {
+            try
+            {
+                foreach (TEntity entity in entityList)
+                {
+                    DBContext.Update(entity);
+                }
+                DBContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        public DbSet<TEntity> Data { get => __DBContext.Set<TEntity>(); }
+
+        private DbContextBase<TContextEntity> DBContext { get => __DBContext; }
+
+        public TLoadOptions LoadWith
+        {
+            get
+            {
+                if (__LoadWith == null)
+                {
+                    __LoadWith = new TLoadOptions();
+                }
+                return __LoadWith;
+            }
+            set
+            {
+                __LoadWith = value;
+            }
+        }
     }
 }

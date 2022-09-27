@@ -1,4 +1,5 @@
 ﻿using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
 
 namespace BoardGameVoter.Logic.VoteSessions

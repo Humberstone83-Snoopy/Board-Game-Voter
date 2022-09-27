@@ -1,31 +1,29 @@
+using BoardGameVoter.Data;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
+using BoardGameVoter.Repositorys.PasswordResetTokens;
 using BoardGameVoter.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace BoardGameVoter.Pages.Account
 {
     public class ResetPasswordModel : BoardGameVoterPageBase
     {
-        //private PasswordResetTokenRepository __PasswordResetTokenRepository;
+        private PasswordResetTokenRepository __PasswordResetTokenRepository;
 
-        public ResetPasswordModel(ISessionManager sessionManager, ILogger<ResetPasswordModel> logger, ISignInService signInService
-            //, PasswordResetTokenDBContext passwordResetTokenDBContext) 
-            )
+        public ResetPasswordModel(ISessionManager sessionManager, ILogger<ResetPasswordModel> logger, ISignInService signInService,
+            PasswordResetTokenDBContext passwordResetTokenDBContext)
         : base(sessionManager, logger, signInService)
         {
-            //__PasswordResetTokenRepository = new PasswordResetTokenRepository(passwordResetTokenDBContext);
+            __PasswordResetTokenRepository = new PasswordResetTokenRepository(passwordResetTokenDBContext);
         }
 
-        //private PasswordResetToken GetToken()
-        //{
-        //    return __PasswordResetTokenRepository.GetByUID(new Guid(Token));
-        //}
+        private PasswordResetToken GetToken()
+        {
+            return __PasswordResetTokenRepository.GetByUID(new Guid(Token));
+        }
 
         public IActionResult OnGet()
         {
@@ -46,12 +44,12 @@ namespace BoardGameVoter.Pages.Account
                 return Page();
             }
 
-            //PasswordResetToken _ResetToken = GetToken();
+            PasswordResetToken _ResetToken = GetToken();
 
-            //if (_ResetToken == null)
-            //{
-            //    return BadRequest("A valid token must be supplied for password reset.");
-            //}
+            if (_ResetToken == null)
+            {
+                return BadRequest("A valid token must be supplied for password reset.");
+            }
 
             User user = UserManager.FindByEmail(Email);
             if (user == null)
@@ -60,11 +58,11 @@ namespace BoardGameVoter.Pages.Account
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 
-            //UserUpdateResult result = UserManager.ResetPassword(user, _ResetToken, Password);
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToPage("./ResetPasswordConfirmation");
-            //}
+            UserUpdateResult result = UserManager.ResetPassword(user, _ResetToken, Password);
+            if (result.Succeeded)
+            {
+                return RedirectToPage("./ResetPasswordConfirmation");
+            }
             return Page();
         }
 

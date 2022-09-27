@@ -1,7 +1,9 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Locations;
+using BoardGameVoter.Repositorys.VoteSessions;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +30,7 @@ namespace BoardGameVoter.Pages.Lobby
             Guid _NewUID = Guid.NewGuid();
             __VoteSessionRepository.Add(new VoteSession()
             {
-                ChosenGameID = -1,
+                LeadGameID = -1,
                 GameDate = GameDate,
                 LocationID = __LocationRepository.GetByUID(Location)?.ID ?? -1,
                 HostUserID = UserManager.User.ID,
@@ -63,7 +65,7 @@ namespace BoardGameVoter.Pages.Lobby
 
         private void PopulateDropDowns()
         {
-            Locations = __LocationRepository.GetAll();
+            Locations = __LocationRepository.GetAll().ToList();
         }
 
         public string Action { get; set; }

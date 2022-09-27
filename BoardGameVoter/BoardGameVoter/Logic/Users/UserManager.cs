@@ -1,27 +1,28 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.EmailConfirmationTokens;
+using BoardGameVoter.Repositorys.PasswordResetTokens;
+using BoardGameVoter.Repositorys.Users;
 using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.Users
 {
     public class UserManager : IUserManager
     {
-        //private EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
-        //private PasswordResetTokenRepository __PasswordResetTokenRepository;
+        private EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
+        private PasswordResetTokenRepository __PasswordResetTokenRepository;
         private ISessionManager __SessionManager;
         private User __User;
         private UserRepository __UserRepository;
 
-        public UserManager(ISessionManager sessionManager, UserDBContext userDBContext
-            //, PasswordResetTokenDBContext passwordResetTokenDBContext, EmailConfirmationTokenDBContext emailConfirmationTokenDBContext)
-            )
+        public UserManager(ISessionManager sessionManager, UserDBContext userDBContext, PasswordResetTokenDBContext passwordResetTokenDBContext,
+            EmailConfirmationTokenDBContext emailConfirmationTokenDBContext)
         {
             __UserRepository = new UserRepository(userDBContext);
             __SessionManager = sessionManager;
-            //__PasswordResetTokenRepository = new PasswordResetTokenRepository(passwordResetTokenDBContext);
-            //__EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(emailConfirmationTokenDBContext);
+            __PasswordResetTokenRepository = new PasswordResetTokenRepository(passwordResetTokenDBContext);
+            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(emailConfirmationTokenDBContext);
         }
 
         public Task AddToRoleAsync(User user, object p)
@@ -34,16 +35,16 @@ namespace BoardGameVoter.Logic.Users
             throw new NotImplementedException("Logic/UserManager - ChangeEmailAsync");
         }
 
-        //public User ConfirmEmail(User user, EmailConfirmationToken token)
-        //{
-        //    if (token != null && token.UserID == user.ID)
-        //    {
-        //        __EmailConfirmationTokenRepository.Delete(token);
-        //        user.IsEmailConfirmed = true;
-        //        __UserRepository.Update(user);
-        //    }
-        //    return user;
-        //}
+        public User ConfirmEmail(User user, EmailConfirmationToken token)
+        {
+            if (token != null && token.UserID == user.ID)
+            {
+                __EmailConfirmationTokenRepository.Delete(token);
+                user.IsEmailConfirmed = true;
+                __UserRepository.Update(user);
+            }
+            return user;
+        }
 
         public bool CreateNewUser(User newUser, string password)
         {
@@ -59,7 +60,7 @@ namespace BoardGameVoter.Logic.Users
             // add password to throw away object and save new user
             newUser.PasswordHash = password;
 
-            return __UserRepository.Add(newUser) != Guid.Empty;
+            return (__UserRepository.Add(newUser)?.UID ?? Guid.Empty) != Guid.Empty;
         }
 
         public User FindByEmail(string email)
@@ -72,15 +73,15 @@ namespace BoardGameVoter.Logic.Users
             return __UserRepository.GetByID(userID);
         }
 
-        //public EmailConfirmationToken GenerateEmailConfirmationToken(User user)
-        //{
-        //    return __EmailConfirmationTokenRepository.GenerateEmailConfirmationToken(user.ID);
-        //}
+        public EmailConfirmationToken GenerateEmailConfirmationToken(User user)
+        {
+            return __EmailConfirmationTokenRepository.GenerateEmailConfirmationToken(user.ID);
+        }
 
-        //public PasswordResetToken GeneratePasswordResetToken(User user)
-        //{
-        //    return __PasswordResetTokenRepository.GeneratePasswordResetToken(user.ID);
-        //}
+        public PasswordResetToken GeneratePasswordResetToken(User user)
+        {
+            return __PasswordResetTokenRepository.GeneratePasswordResetToken(user.ID);
+        }
 
         public Task<int> GetUserIdAsync(User user)
         {
@@ -92,22 +93,22 @@ namespace BoardGameVoter.Logic.Users
             return user.IsEmailConfirmed;
         }
 
-        //public UserUpdateResult ResetPassword(User user, PasswordResetToken token, string password)
-        //{
-        //    UserUpdateResult _UserUpdateResult = new UserUpdateResult();
-        //    if (token != null && token.UserID == user.ID)
-        //    {
-        //        __PasswordResetTokenRepository.Delete(token);
-        //        user.PasswordHash = password;
-        //        __UserRepository.Update(user);
-        //        _UserUpdateResult.Succeeded = true;
-        //    }
-        //    else
-        //    {
-        //        _UserUpdateResult.Succeeded = false;
-        //    }
-        //    return _UserUpdateResult;
-        //}
+        public UserUpdateResult ResetPassword(User user, PasswordResetToken token, string password)
+        {
+            UserUpdateResult _UserUpdateResult = new UserUpdateResult();
+            if (token != null && token.UserID == user.ID)
+            {
+                __PasswordResetTokenRepository.Delete(token);
+                user.PasswordHash = password;
+                __UserRepository.Update(user);
+                _UserUpdateResult.Succeeded = true;
+            }
+            else
+            {
+                _UserUpdateResult.Succeeded = false;
+            }
+            return _UserUpdateResult;
+        }
 
         public Task<UserUpdateResult> SetUserNameAsync(User user, string username)
         {

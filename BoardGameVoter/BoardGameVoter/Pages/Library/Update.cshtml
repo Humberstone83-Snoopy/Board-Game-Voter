@@ -25,10 +25,10 @@
     <div class="form-group">
         @if (Model.DisableInputs)
         {
-            <input type="hidden" asp-for="LearningDifficulty" value="@Model.LearningDifficulty" />
+            <input type="hidden" asp-for="GameWeight" value="@Model.GameWeight" />
         }
-        <label asp-for="LearningDifficulty"></label>
-        <select id="DifficultySelect" asp-for="LearningDifficulty" asp-items="Html.GetEnumSelectList<Difficulty>()" class="form-control" disabled="@Model.DisableInputs">
+        <label asp-for="GameWeight"></label>
+        <select id="DifficultySelect" asp-for="GameWeight" asp-items="Html.GetEnumSelectList<Weight>()" class="form-control" disabled="@Model.DisableInputs">
             <option>Select difficulty ...</option>
         </select>
     </div>
@@ -41,8 +41,8 @@
     <div class="form-group">
         <label asp-for="MinimumPlayTime"></label>
         <input id="MinPlayTimeInput" asp-for="MinimumPlayTime" class="form-control" readonly="true" />
-        <label asp-for="MaxPlayTime"></label>
-        <input id="MaxPlayTimeInput" asp-for="MaxPlayTime" class="form-control" readonly="true" />
+        <label asp-for="MaximumPlayTime"></label>
+        <input id="MaxPlayTimeInput" asp-for="MaximumPlayTime" class="form-control" readonly="true" />
     </div>
     <div class="form-group">
         @if (Model.DisableInputs)

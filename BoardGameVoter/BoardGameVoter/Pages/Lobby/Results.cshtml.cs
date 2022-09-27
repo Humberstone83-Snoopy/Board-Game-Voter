@@ -1,7 +1,9 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Pages.Shared;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Library;
+using BoardGameVoter.Repositorys.VoteSessions;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +15,11 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
         private readonly VoteSessionResultRepository __VoteSessionResultRepository;
 
-        public ResultsModel(ISessionManager sessionManager, ILogger<ResultsModel> logger, ISignInService service, VoteSessionResultDBContext voteSessionResultDBContext,
+        public ResultsModel(ISessionManager sessionManager, ILogger<ResultsModel> logger, ISignInService service, 
             VoteSessionDBContext voteSessionDBContext, LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
             : base(sessionManager, logger, service)
         {
-            __VoteSessionResultRepository = new VoteSessionResultRepository(voteSessionResultDBContext);
+            __VoteSessionResultRepository = new VoteSessionResultRepository(voteSessionDBContext);
             __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
             __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext, boardGameDBContext);
         }

@@ -1,23 +1,21 @@
-﻿using BoardGameVoter.Models.Shared;
+﻿using BoardGameVoter.Data.Shared;
+using BoardGameVoter.Models.Shared;
 
 namespace BoardGameVoter.Repositorys.Shared
 {
-    public interface IRepositoryBase<T>
-        where T : EntityBase
+    public interface IRepositoryBase<E, L>
+        where E : EntityBase
+        where L : RepositoryLoadOptions, new()
     {
-        public Guid Add(T entity);
-        public void Add(List<T> entityList);
-        public void Delete(T entity);
-        public void Delete(List<T> entityList);
-        public List<T> GetAll();
-
-        public T GetByID(int id);
-
-        public List<T> GetByID(IEnumerable<int> idList);
-
-        public T GetByUID(Guid uid);
-        public void Update(T entity);
-
-        public void Update(List<T> entityList);
+        public E? Add(E entity);
+        public IEnumerable<E>? Add(IEnumerable<E> entityList);
+        public bool Delete(E entity);
+        public bool Delete(IEnumerable<E> entityList);
+        public IEnumerable<E> GetAll();
+        public E? GetByID(int id);
+        public IEnumerable<E> GetByID(IEnumerable<int> idList);
+        public E? GetByUID(Guid uid);
+        public bool Update(E entity);
+        public bool Update(IEnumerable<E> entityList);
     }
 }

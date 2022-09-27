@@ -1,7 +1,7 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.TableModels;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Library;
 
 namespace BoardGameVoter.Logic.UserLibrarys
 {

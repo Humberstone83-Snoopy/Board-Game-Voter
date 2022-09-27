@@ -1,7 +1,7 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
-using BoardGameVoter.Repositorys;
+using BoardGameVoter.Repositorys.Users;
 using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.LoginManagers
