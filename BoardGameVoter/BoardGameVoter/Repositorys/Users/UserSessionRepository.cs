@@ -1,12 +1,14 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys.Shared;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Repositorys.Users
 {
     public class UserSessionRepository : RepositoryBase<UserSession>, IUserSessionRepository
     {
-        public UserSessionRepository(UserSessionDBContext dbContext) : base(dbContext)
+        public UserSessionRepository(IDBContextService dbContextService) 
+            : base(dbContextService)
         {
         }
 

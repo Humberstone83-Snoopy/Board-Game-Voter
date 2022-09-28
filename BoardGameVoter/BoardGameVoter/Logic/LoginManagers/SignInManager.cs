@@ -10,12 +10,10 @@ namespace BoardGameVoter.Logic.LoginManagers
     {
         private ISessionManager __SessionManager;
         private UserRepository __UserRepository;
-        private UserSessionRepository __UserSessionRepository;
 
-        public SignInManager(UserDBContext userDBContext, UserSessionDBContext userSessionDBContext, ISessionManager sessionManager)
+        public SignInManager(IDBContextService dbContextService, ISessionManager sessionManager)
         {
-            __UserSessionRepository = new UserSessionRepository(userSessionDBContext);
-            __UserRepository = new UserRepository(userDBContext);
+            __UserRepository = new UserRepository(dbContextService);
             __SessionManager = sessionManager;
         }
 

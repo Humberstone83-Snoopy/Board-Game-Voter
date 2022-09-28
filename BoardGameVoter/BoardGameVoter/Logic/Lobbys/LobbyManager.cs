@@ -1,30 +1,29 @@
-﻿using BoardGameVoter.Data;
-using BoardGameVoter.Models.EntityModels;
+﻿using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Repositorys.Library;
 using BoardGameVoter.Repositorys.Locations;
 using BoardGameVoter.Repositorys.Users;
 using BoardGameVoter.Repositorys.VoteSessions;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.Lobbys
 {
     public class LobbyManager : ILobbyManager
     {
-        private LibraryGameRepository __LibraryGameRepository;
-        private LocationRepository __LocationRepository;
-        private UserRepository __UserRepository;
-        private VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
-        private VoteSessionRepository __VoteSessionRepository;
+        private readonly LibraryGameRepository __LibraryGameRepository;
+        private readonly LocationRepository __LocationRepository;
+        private readonly UserRepository __UserRepository;
+        private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
+        private readonly VoteSessionRepository __VoteSessionRepository;
 
-        public LobbyManager(VoteSessionDBContext voteSessionDBContext, UserDBContext userDBContext,
-            LibraryGameDBContext libraryGameDbContext, LocationDBContext locationDBContext)
+        public LobbyManager(IDBContextService dbContextService)
         {
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext);
-            __UserRepository = new UserRepository(userDBContext);
-            __LocationRepository = new LocationRepository(locationDBContext);
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
+            __UserRepository = new UserRepository(dbContextService);
+            __LocationRepository = new LocationRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         public List<LobbyTableModel> GetPublicLobby()

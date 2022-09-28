@@ -23,14 +23,13 @@ namespace BoardGameVoter.Pages.Lobby
         private VoteSession __VoteSession;
 
         public InviteModel(ISessionManager sessionManager, ILogger<InviteModel> logger, ISignInService service,
-            UserDBContext userDBContext, VoteSessionDBContext voteSessionDBContext, 
-            LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+            IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __UserRepository = new UserRepository(userDBContext);
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext);
-            __VoteSessionManager = new VoteSessionManager(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
+            __UserRepository = new UserRepository(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
+            __VoteSessionManager = new VoteSessionManager(dbContextService);
         }
 
         private void HandleAction()

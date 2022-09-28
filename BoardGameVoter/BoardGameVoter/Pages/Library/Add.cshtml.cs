@@ -23,12 +23,12 @@ namespace BoardGameVoter.Pages.Library
         private readonly BoardGameRepository __BoardGameRepository;
         private readonly LibraryGameRepository __LibraryGameRepository;
 
-        public AddModel(ISessionManager sessionManager, ILogger<AddModel> logger, ISignInService service, 
-            BoardGameDBContext boardGameDBContext, LibraryGameDBContext libraryGameDBContext) 
+        public AddModel(ISessionManager sessionManager, ILogger<AddModel> logger, ISignInService service,
+            IDBContextService dbContextService) 
             : base(sessionManager, logger, service)
         {
-            __BoardGameRepository = new BoardGameRepository(boardGameDBContext);
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDBContext);
+            __BoardGameRepository = new BoardGameRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         private void AddNewBoardGame()

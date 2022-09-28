@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Data.Shared
 {
-    public abstract class DbContextBase<T> : DbContext, IDBContextBase<T>
+    public abstract class DBContextBase<T> : DbContext, IDBContextBase<T>
          where T : EntityBase
     {
-        public DbContextBase(DbContextOptions options)
+        public DBContextBase(DbContextOptions options)
             : base(options)
         { }
 

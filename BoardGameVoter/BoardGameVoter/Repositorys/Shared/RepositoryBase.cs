@@ -1,5 +1,6 @@
 ﻿using BoardGameVoter.Data.Shared;
 using BoardGameVoter.Models.Shared;
+using BoardGameVoter.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Repositorys.Shared
@@ -7,8 +8,8 @@ namespace BoardGameVoter.Repositorys.Shared
     public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, TEntity, RepositoryLoadOptions>
         where TEntity : EntityBase
     {
-        protected RepositoryBase(DbContextBase<TEntity> dbContext) 
-            : base(dbContext)
+        protected RepositoryBase(IDBContextService dbContextService) 
+            : base(dbContextService)
         {
         }
     }
@@ -17,13 +18,13 @@ namespace BoardGameVoter.Repositorys.Shared
         where TEntity : EntityBase
         where TLoadOptions : RepositoryLoadOptions, new()
     {
-        protected RepositoryBase(DbContextBase<TEntity> dbContext) 
-            : base(dbContext)
+        protected RepositoryBase(IDBContextService dbContextService) 
+            : base(dbContextService)
         {
         }
 
-        protected RepositoryBase(DbContextBase<TEntity> dbContext, TLoadOptions loadWithOptions) 
-            : base(dbContext, loadWithOptions)
+        protected RepositoryBase(IDBContextService dbContextService, TLoadOptions loadWithOptions) 
+            : base(dbContextService, loadWithOptions)
         {
         }
     }
@@ -34,17 +35,17 @@ namespace BoardGameVoter.Repositorys.Shared
         where TLoadOptions : RepositoryLoadOptions, new()
     {
 
-        private DbContextBase<TContextEntity> __DBContext;
+        private DBContextBase<TContextEntity> __DBContext;
         private TLoadOptions __LoadWith;
 
-        public RepositoryBase(DbContextBase<TContextEntity> dbContext)
+        public RepositoryBase(IDBContextService dbContextService)
         {
-            __DBContext = dbContext;
+            __DBContext = (DBContextBase<TContextEntity>?)dbContextService.GetDBContext(typeof(TContextEntity));
         }
 
-        public RepositoryBase(DbContextBase<TContextEntity> dbContext, TLoadOptions loadWithOptions)
+        public RepositoryBase(IDBContextService dbContextService, TLoadOptions loadWithOptions)
         {
-            __DBContext = dbContext;
+            __DBContext = (DBContextBase<TContextEntity>?)dbContextService.GetDBContext(typeof(TContextEntity));
             __LoadWith = loadWithOptions;
         }
 
@@ -172,7 +173,7 @@ namespace BoardGameVoter.Repositorys.Shared
 
         public DbSet<TEntity> Data { get => __DBContext.Set<TEntity>(); }
 
-        private DbContextBase<TContextEntity> DBContext { get => __DBContext; }
+        private DBContextBase<TContextEntity> DBContext { get => __DBContext; }
 
         public TLoadOptions LoadWith
         {

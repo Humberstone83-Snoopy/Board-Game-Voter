@@ -2,6 +2,7 @@
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Repositorys.Library;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.UserLibrarys
 {
@@ -9,9 +10,9 @@ namespace BoardGameVoter.Logic.UserLibrarys
     {
         private readonly LibraryGameRepository __LibraryGameRepository;
 
-        public UserLibraryManager(LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+        public UserLibraryManager(IDBContextService dbContextService)
         {
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext, boardGameDBContext);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         public List<UserLibraryTableModel> GetUserLibrary(int userID)

@@ -14,10 +14,10 @@ namespace BoardGameVoter.Pages.Locations
 
         private LocationRepository __LocationRepository;
 
-        public AddModel(ISessionManager sessionManager, ILogger<AddModel> logger, ISignInService service, LocationDBContext locationDBContext)
+        public AddModel(ISessionManager sessionManager, ILogger<AddModel> logger, ISignInService service, IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __LocationRepository = new LocationRepository(locationDBContext);
+            __LocationRepository = new LocationRepository(dbContextService);
         }
 
         public void OnGet()

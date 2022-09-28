@@ -4,6 +4,7 @@ using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Repositorys.Library;
 using BoardGameVoter.Repositorys.Shared;
 using BoardGameVoter.Repositorys.Users;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Repositorys.VoteSessions
 {
@@ -12,22 +13,16 @@ namespace BoardGameVoter.Repositorys.VoteSessions
         private readonly LibraryGameRepository __LibraryGameRepository;
         private readonly UserRepository __UserRepository;
 
-        public VoteSessionAttendeeRepository(VoteSessionDBContext dbContext)
-            : base(dbContext)
+        public VoteSessionAttendeeRepository(IDBContextService dbContextService)
+            : this(dbContextService, new())
         {
         }
 
-        public VoteSessionAttendeeRepository(VoteSessionDBContext dbContext, VoteSessionAttendeeLoadOptions loadOptions)
-            : base(dbContext, loadOptions)
+        public VoteSessionAttendeeRepository(IDBContextService dbContextService, VoteSessionAttendeeLoadOptions loadOptions)
+            : base(dbContextService, loadOptions)
         {
-        }
-
-        public VoteSessionAttendeeRepository(VoteSessionDBContext dbContext, UserDBContext userDBContext,
-            LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
-            : base(dbContext)
-        {
-            __UserRepository = new UserRepository(userDBContext);
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext, boardGameDBContext);
+            __UserRepository = new UserRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         public List<VoteSessionAttendee> GetByUserID(int userID)

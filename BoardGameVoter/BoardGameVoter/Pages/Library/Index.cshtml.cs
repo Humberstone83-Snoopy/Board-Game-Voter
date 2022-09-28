@@ -13,10 +13,10 @@ namespace BoardGameVoter.Pages.Library
         private readonly UserLibraryManager __UserLibraryManager;
 
         public IndexModel(ISessionManager sessionManager, ILogger<IndexModel> logger, ISignInService service,
-            LibraryGameDBContext libraryGameDBContext, BoardGameDBContext boardGameDBContext)
+            IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __UserLibraryManager = new UserLibraryManager(libraryGameDBContext, boardGameDBContext);
+            __UserLibraryManager = new UserLibraryManager(dbContextService);
         }
 
         public void OnGet()

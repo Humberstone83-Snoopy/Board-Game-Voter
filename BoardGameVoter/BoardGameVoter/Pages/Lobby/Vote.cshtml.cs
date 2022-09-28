@@ -18,14 +18,13 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
 
         public VoteModel(ISessionManager sessionManager, ILogger<VoteModel> logger, ISignInService service,
-            VoteSessionDBContext voteSessionDBContext, LibraryGameDBContext libraryGameDbContext, 
-            BoardGameDBContext boardGameDBContext, UserDBContext userDBContext)
+            IDBContextService dbContextService)
 
             : base(sessionManager, logger, service)
         {
-            __VoteManager = new VoteManager(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext);
+            __VoteManager = new VoteManager(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
         }
 
         public IActionResult OnGet()

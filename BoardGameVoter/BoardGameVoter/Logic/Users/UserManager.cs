@@ -16,13 +16,12 @@ namespace BoardGameVoter.Logic.Users
         private User __User;
         private UserRepository __UserRepository;
 
-        public UserManager(ISessionManager sessionManager, UserDBContext userDBContext, PasswordResetTokenDBContext passwordResetTokenDBContext,
-            EmailConfirmationTokenDBContext emailConfirmationTokenDBContext)
+        public UserManager(ISessionManager sessionManager, IDBContextService dbContextService)
         {
-            __UserRepository = new UserRepository(userDBContext);
+            __UserRepository = new UserRepository(dbContextService);
             __SessionManager = sessionManager;
-            __PasswordResetTokenRepository = new PasswordResetTokenRepository(passwordResetTokenDBContext);
-            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(emailConfirmationTokenDBContext);
+            __PasswordResetTokenRepository = new PasswordResetTokenRepository(dbContextService);
+            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(dbContextService);
         }
 
         public Task AddToRoleAsync(User user, object p)

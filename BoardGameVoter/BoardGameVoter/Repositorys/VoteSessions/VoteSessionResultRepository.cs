@@ -1,18 +1,19 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Repositorys.Shared;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Repositorys.VoteSessions
 {
     public class VoteSessionResultRepository : RepositoryBase<VoteSessionResult, VoteSession, VoteSessionResultLoadOptions>, IVoteSessionResultRepository
     {
-        public VoteSessionResultRepository(VoteSessionDBContext dbContext)
-            : base(dbContext)
+        public VoteSessionResultRepository(IDBContextService dbContextService)
+            : this(dbContextService, new())
         {
         }
 
-        public VoteSessionResultRepository(VoteSessionDBContext dbContext, VoteSessionResultLoadOptions loadOptions)
-            : base(dbContext, loadOptions)
+        public VoteSessionResultRepository(IDBContextService dbContextService, VoteSessionResultLoadOptions loadOptions)
+            : base(dbContextService, loadOptions)
         {
         }
 

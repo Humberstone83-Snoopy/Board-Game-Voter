@@ -15,13 +15,13 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
         private readonly VoteSessionResultRepository __VoteSessionResultRepository;
 
-        public ResultsModel(ISessionManager sessionManager, ILogger<ResultsModel> logger, ISignInService service, 
-            VoteSessionDBContext voteSessionDBContext, LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+        public ResultsModel(ISessionManager sessionManager, ILogger<ResultsModel> logger, ISignInService service,
+            IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __VoteSessionResultRepository = new VoteSessionResultRepository(voteSessionDBContext);
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext, boardGameDBContext);
+            __VoteSessionResultRepository = new VoteSessionResultRepository(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         public void OnGet()

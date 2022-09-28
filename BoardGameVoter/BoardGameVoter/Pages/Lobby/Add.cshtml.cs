@@ -18,11 +18,11 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
 
         public AddModel(ISessionManager sessionManager, ILogger<AddModel> logger, ISignInService service,
-            LocationDBContext locationDBContext, VoteSessionDBContext voteSessionDBContext)
+            IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __LocationRepository = new LocationRepository(locationDBContext);
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
+            __LocationRepository = new LocationRepository(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
         }
 
         private void Complete()

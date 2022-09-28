@@ -4,6 +4,7 @@ using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Repositorys.Library;
 using BoardGameVoter.Repositorys.VoteSessions;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {
@@ -15,14 +16,13 @@ namespace BoardGameVoter.Logic.VoteSessions
         private readonly VoteSessionRepository __VoteSessionRepository;
         private readonly VoteSessionResultRepository __VoteSessionResultRepository;
 
-        public VoteManager(VoteSessionDBContext voteSessionDBContext, UserDBContext userDBContext,
-            LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+        public VoteManager(IDBContextService dbContextService)
         {
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
-            __VoteSessionResultRepository = new VoteSessionResultRepository(voteSessionDBContext);
-            __VoteRepository = new VoteRepository(voteSessionDBContext);
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDbContext);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
+            __VoteSessionResultRepository = new VoteSessionResultRepository(dbContextService);
+            __VoteRepository = new VoteRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         public void ArchiveRemainingVotes(VoteSession voteSession)

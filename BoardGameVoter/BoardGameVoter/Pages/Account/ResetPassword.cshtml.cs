@@ -14,10 +14,10 @@ namespace BoardGameVoter.Pages.Account
         private PasswordResetTokenRepository __PasswordResetTokenRepository;
 
         public ResetPasswordModel(ISessionManager sessionManager, ILogger<ResetPasswordModel> logger, ISignInService signInService,
-            PasswordResetTokenDBContext passwordResetTokenDBContext)
+            IDBContextService dbContextService)
         : base(sessionManager, logger, signInService)
         {
-            __PasswordResetTokenRepository = new PasswordResetTokenRepository(passwordResetTokenDBContext);
+            __PasswordResetTokenRepository = new PasswordResetTokenRepository(dbContextService);
         }
 
         private PasswordResetToken GetToken()

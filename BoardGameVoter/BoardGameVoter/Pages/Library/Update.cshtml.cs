@@ -20,11 +20,11 @@ namespace BoardGameVoter.Pages.Library
         private readonly BoardGameRepository __BoardGameRepository;
         private readonly LibraryGameRepository __LibraryGameRepository;
 
-        public UpdateModel(ISessionManager sessionManager, ILogger<UpdateModel> logger, ISignInService service, LibraryGameDBContext libraryGameDBContext, BoardGameDBContext boardGameDBContext)
+        public UpdateModel(ISessionManager sessionManager, ILogger<UpdateModel> logger, ISignInService service, IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __BoardGameRepository = new BoardGameRepository(boardGameDBContext);
-            __LibraryGameRepository = new LibraryGameRepository(libraryGameDBContext);
+            __BoardGameRepository = new BoardGameRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
         }
 
         private void Delete()

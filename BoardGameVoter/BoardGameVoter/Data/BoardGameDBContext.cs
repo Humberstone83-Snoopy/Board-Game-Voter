@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Data
 {
-    public class BoardGameDBContext : DbContextBase<BoardGame>
+    public class BoardGameDBContext : DBContextBase<BoardGame>, IDBContext
     {
         public BoardGameDBContext(DbContextOptions<BoardGameDBContext> options) : base(options)
         {

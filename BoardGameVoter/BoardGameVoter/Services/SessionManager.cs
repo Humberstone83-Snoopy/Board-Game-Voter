@@ -17,10 +17,10 @@ namespace BoardGameVoter.Services
         private int __UserSessionID;
         private UserSessionRepository __UserSessionRepository;
 
-        public SessionManager(UserSessionDBContext sessionDBContext, UserDBContext userDBContext, ILogger<BoardGameVoterPageBase> logger, IHttpContextAccessor accessor)
+        public SessionManager(IDBContextService dbContextService, ILogger<BoardGameVoterPageBase> logger, IHttpContextAccessor accessor)
         {
-            __UserSessionRepository = new UserSessionRepository(sessionDBContext);
-            __UserRepository = new UserRepository(userDBContext);
+            __UserSessionRepository = new UserSessionRepository(dbContextService);
+            __UserRepository = new UserRepository(dbContextService);
             __Logger = logger;
             __ContextAccessor = accessor;
         }

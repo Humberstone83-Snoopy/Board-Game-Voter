@@ -3,6 +3,7 @@ using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Repositorys.BoardGames;
 using BoardGameVoter.Repositorys.Shared;
+using BoardGameVoter.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Repositorys.Library
@@ -11,21 +12,16 @@ namespace BoardGameVoter.Repositorys.Library
     {
         private BoardGameRepository __BoardGameRepository;
 
-        public LibraryGameRepository(LibraryGameDBContext dbContext)
-            : base(dbContext)
+        public LibraryGameRepository(IDBContextService dbContextService)
+            : this(dbContextService, new())
         {
         }
 
-        public LibraryGameRepository(LibraryGameDBContext dbContext, LibraryGameLoadOptions loadOptions)
-            : base(dbContext, loadOptions)
+        public LibraryGameRepository(IDBContextService dbContextService, LibraryGameLoadOptions loadOptions)
+            : base(dbContextService, loadOptions)
         {
 
-        }
-
-        public LibraryGameRepository(LibraryGameDBContext dbContext, BoardGameDBContext boardGameDBContext)
-            : base(dbContext)
-        {
-            __BoardGameRepository = new BoardGameRepository(boardGameDBContext);
+            __BoardGameRepository = new BoardGameRepository(dbContextService);
         }
 
         public void AddNew(User user, BoardGame boardGame)

@@ -11,12 +11,12 @@ namespace BoardGameVoter.Pages.Account
     {
         private EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
 
-        public ConfirmEmailModel(ISessionManager sessionManager, ILogger<ConfirmEmailModel> logger, ISignInService signInService, 
-            EmailConfirmationTokenDBContext emailConfirmationTokenDBContext)
+        public ConfirmEmailModel(ISessionManager sessionManager, ILogger<ConfirmEmailModel> logger, ISignInService signInService,
+            IDBContextService dbContextService)
             
             : base(sessionManager, logger, signInService)
         {
-            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(emailConfirmationTokenDBContext);
+            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(dbContextService);
         }
 
         private EmailConfirmationToken GetToken()

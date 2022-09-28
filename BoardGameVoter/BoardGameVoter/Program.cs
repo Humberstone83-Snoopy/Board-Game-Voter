@@ -40,6 +40,7 @@ builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 // Scoped Services
 builder.Services.AddScoped<ISignInService, SignInService>();
 builder.Services.AddScoped<ISessionManager, SessionManager>();
+builder.Services.AddScoped<IDBContextService, DBContextService>();
 
 var app = builder.Build();
 

@@ -4,6 +4,7 @@ using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Repositorys.BoardGames;
 using BoardGameVoter.Repositorys.VoteSessions;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {
@@ -16,13 +17,12 @@ namespace BoardGameVoter.Logic.VoteSessions
         private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
         private readonly VoteSessionRepository __VoteSessionRepository;
 
-        public VoteSessionManager(VoteSessionDBContext voteSessionDBContext, UserDBContext userDBContext, 
-            LibraryGameDBContext libraryGameDbContext, BoardGameDBContext boardGameDBContext)
+        public VoteSessionManager(IDBContextService dbContextService)
         {
-            __VoteSessionRepository = new VoteSessionRepository(voteSessionDBContext);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(voteSessionDBContext);
-            __VoteManager = new VoteManager(voteSessionDBContext, userDBContext, libraryGameDbContext, boardGameDBContext);
-            __BoardGameRepository = new BoardGameRepository(boardGameDBContext);
+            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
+            __VoteManager = new VoteManager(dbContextService);
+            __BoardGameRepository = new BoardGameRepository(dbContextService);
         }
 
         public VoteSessionAttendee AddNewAttendee(int userID, int voteSessionID)

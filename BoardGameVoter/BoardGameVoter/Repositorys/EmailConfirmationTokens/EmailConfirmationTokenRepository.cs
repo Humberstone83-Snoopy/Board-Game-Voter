@@ -1,13 +1,14 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys.Shared;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Repositorys.EmailConfirmationTokens
 {
     public class EmailConfirmationTokenRepository : RepositoryBase<EmailConfirmationToken>
     {
-        public EmailConfirmationTokenRepository(EmailConfirmationTokenDBContext dbContext) 
-            : base(dbContext)
+        public EmailConfirmationTokenRepository(IDBContextService dbContextService) 
+            : base(dbContextService)
         {
         }
 

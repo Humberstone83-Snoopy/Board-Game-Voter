@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoardGameVoter.Data
 {
-    public class EmailConfirmationTokenDBContext : DbContextBase<EmailConfirmationToken>
+    public class EmailConfirmationTokenDBContext : DBContextBase<EmailConfirmationToken>, IDBContext
     {
         public EmailConfirmationTokenDBContext(DbContextOptions<EmailConfirmationTokenDBContext> options) : base(options)
         {

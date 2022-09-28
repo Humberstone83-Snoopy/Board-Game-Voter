@@ -1,12 +1,14 @@
 ﻿using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys.Shared;
+using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Repositorys.PasswordResetTokens
 {
     public class PasswordResetTokenRepository : RepositoryBase<PasswordResetToken>, IPasswordResetTokenRepository
     {
-        public PasswordResetTokenRepository(PasswordResetTokenDBContext dbContext) : base(dbContext)
+        public PasswordResetTokenRepository(IDBContextService dbContextService) 
+            : base(dbContextService)
         {
         }
 

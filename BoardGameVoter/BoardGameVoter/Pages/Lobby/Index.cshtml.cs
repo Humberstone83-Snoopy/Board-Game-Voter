@@ -11,11 +11,10 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly LobbyManager __LobbyManager;
 
         public IndexModel(ISessionManager sessionManager, ILogger<IndexModel> logger, ISignInService service,
-            VoteSessionDBContext voteSessionDBContext, UserDBContext userDBContext, 
-            LibraryGameDBContext libraryGameDBContext, LocationDBContext locationDBContext)
+            IDBContextService dbContextService)
             : base(sessionManager, logger, service)
         {
-            __LobbyManager = new LobbyManager(voteSessionDBContext, userDBContext, libraryGameDBContext, locationDBContext);
+            __LobbyManager = new LobbyManager(dbContextService);
         }
 
         public void OnGet()
