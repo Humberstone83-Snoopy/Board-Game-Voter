@@ -8,8 +8,8 @@ namespace BoardGameVoter.Repositorys.Shared
     public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, TEntity, RepositoryLoadOptions>
         where TEntity : EntityBase
     {
-        protected RepositoryBase(IDBContextService dbContextService) 
-            : base(dbContextService)
+        protected RepositoryBase(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
         }
     }
@@ -18,13 +18,13 @@ namespace BoardGameVoter.Repositorys.Shared
         where TEntity : EntityBase
         where TLoadOptions : RepositoryLoadOptions, new()
     {
-        protected RepositoryBase(IDBContextService dbContextService) 
-            : base(dbContextService)
+        protected RepositoryBase(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
         }
 
-        protected RepositoryBase(IDBContextService dbContextService, TLoadOptions loadWithOptions) 
-            : base(dbContextService, loadWithOptions)
+        protected RepositoryBase(IBGVServiceProvider bGVServiceProvider, TLoadOptions loadWithOptions)
+            : base(bGVServiceProvider, loadWithOptions)
         {
         }
     }
@@ -38,14 +38,14 @@ namespace BoardGameVoter.Repositorys.Shared
         private DBContextBase<TContextEntity> __DBContext;
         private TLoadOptions __LoadWith;
 
-        public RepositoryBase(IDBContextService dbContextService)
+        public RepositoryBase(IBGVServiceProvider bGVServiceProvider)
         {
-            __DBContext = (DBContextBase<TContextEntity>?)dbContextService.GetDBContext(typeof(TContextEntity));
+            __DBContext = (DBContextBase<TContextEntity>?)bGVServiceProvider.DBContextService.GetDBContext(typeof(TContextEntity));
         }
 
-        public RepositoryBase(IDBContextService dbContextService, TLoadOptions loadWithOptions)
+        public RepositoryBase(IBGVServiceProvider bGVServiceProvider, TLoadOptions loadWithOptions)
         {
-            __DBContext = (DBContextBase<TContextEntity>?)dbContextService.GetDBContext(typeof(TContextEntity));
+            __DBContext = (DBContextBase<TContextEntity>?)bGVServiceProvider.DBContextService.GetDBContext(typeof(TContextEntity));
             __LoadWith = loadWithOptions;
         }
 

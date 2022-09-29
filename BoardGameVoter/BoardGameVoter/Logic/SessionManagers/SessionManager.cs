@@ -1,28 +1,26 @@
-﻿using BoardGameVoter.Data;
+﻿using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Repositorys.Users;
+using BoardGameVoter.Services;
 
-namespace BoardGameVoter.Services
+namespace BoardGameVoter.Logic.SessionManagers
 {
-    public class SessionManager : ISessionManager
+    public class SessionManager : BusinessBase, ISessionManager
     {
         private const string USER_SESSION_KEY_USER_ID = "UserSessionID";
 
-        private readonly IHttpContextAccessor __ContextAccessor;
-        private ILogger<BoardGameVoterPageBase> __Logger;
+        private readonly UserRepository __UserRepository;
+        private readonly UserSessionRepository __UserSessionRepository;
         private User? __User;
-        private UserRepository __UserRepository;
         private UserSession? __UserSession;
         private int __UserSessionID;
-        private UserSessionRepository __UserSessionRepository;
 
-        public SessionManager(IDBContextService dbContextService, ILogger<BoardGameVoterPageBase> logger, IHttpContextAccessor accessor)
+        public SessionManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __UserSessionRepository = new UserSessionRepository(dbContextService);
-            __UserRepository = new UserRepository(dbContextService);
-            __Logger = logger;
-            __ContextAccessor = accessor;
+            __UserSessionRepository = new UserSessionRepository(bGVServiceProvider);
+            __UserRepository = new UserRepository(bGVServiceProvider);
         }
 
         public void AddUser(User user)
@@ -41,6 +39,8 @@ namespace BoardGameVoter.Services
             __UserSessionID = -1;
             Session.Clear();
         }
+
+        public ISession Session { get => BGVServiceProvider.Session; }
 
         public void CreateNewSession()
         {
@@ -82,7 +82,7 @@ namespace BoardGameVoter.Services
                 ClearCurrentSession();
             }
             User _CurrentUser = User;
-            if ((!allowAnnoymous && _CurrentUser == null) || _CurrentUser != null)
+            if (!allowAnnoymous && _CurrentUser == null || _CurrentUser != null)
             {
                 return false;
             }
@@ -106,8 +106,6 @@ namespace BoardGameVoter.Services
             _CurrentSession.LastInteraction = DateTime.Now;
             __UserSessionRepository.Update(_CurrentSession);
         }
-
-        public ISession Session { get => __ContextAccessor.HttpContext.Session; }
 
         public User User
         {
@@ -155,7 +153,7 @@ namespace BoardGameVoter.Services
                 __UserSessionID = Session.GetInt32(USER_SESSION_KEY_USER_ID) ?? -1;
                 string userSessionID = __UserSessionID.ToString();
 
-                __Logger.LogInformation("Session UserSessionID: {UserSessionID}", userSessionID);
+                BGVServiceProvider.Logger.LogInformation("Session UserSessionID: {UserSessionID}", userSessionID);
             }
         }
     }

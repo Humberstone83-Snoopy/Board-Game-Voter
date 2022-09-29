@@ -1,4 +1,4 @@
-﻿using BoardGameVoter.Data;
+﻿using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
@@ -8,7 +8,7 @@ using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {
-    public class VoteManager : IVoteManager
+    public class VoteManager : BusinessBase, IVoteManager
     {
         private readonly LibraryGameRepository __LibraryGameRepository;
         private readonly VoteRepository __VoteRepository;
@@ -16,13 +16,14 @@ namespace BoardGameVoter.Logic.VoteSessions
         private readonly VoteSessionRepository __VoteSessionRepository;
         private readonly VoteSessionResultRepository __VoteSessionResultRepository;
 
-        public VoteManager(IDBContextService dbContextService)
+        public VoteManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
-            __VoteSessionResultRepository = new VoteSessionResultRepository(dbContextService);
-            __VoteRepository = new VoteRepository(dbContextService);
-            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(bGVServiceProvider);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(bGVServiceProvider);
+            __VoteSessionResultRepository = new VoteSessionResultRepository(bGVServiceProvider);
+            __VoteRepository = new VoteRepository(bGVServiceProvider);
+            __LibraryGameRepository = new LibraryGameRepository(bGVServiceProvider);
         }
 
         public void ArchiveRemainingVotes(VoteSession voteSession)

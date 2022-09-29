@@ -6,8 +6,8 @@ namespace BoardGameVoter.Pages.Account
     public class RegisterConfirmationModel : BoardGameVoterPageBase
     {
 
-        public RegisterConfirmationModel(ISessionManager sessionManager, ILogger<RegisterConfirmationModel> logger, ISignInService signInService)
-            : base(sessionManager, logger, signInService)
+        public RegisterConfirmationModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
         }
     }

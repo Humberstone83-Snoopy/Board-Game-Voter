@@ -10,10 +10,10 @@ namespace BoardGameVoter.Pages.Account
     {
         //private MailController __MailController;
 
-        public ResendEmailConfirmationModel(ISessionManager sessionManager, ILogger<ResendEmailConfirmationModel> logger, ISignInService signInService
+        public ResendEmailConfirmationModel(IBGVServiceProvider bGVServiceProvider
             //, IMailService mailService) 
             )
-        : base(sessionManager, logger, signInService)
+        : base(bGVServiceProvider)
         {
             //__MailController = new MailController(mailService);
         }

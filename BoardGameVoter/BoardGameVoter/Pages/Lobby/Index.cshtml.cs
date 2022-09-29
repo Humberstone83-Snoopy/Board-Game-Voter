@@ -1,4 +1,3 @@
-using BoardGameVoter.Data;
 using BoardGameVoter.Logic.Lobbys;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Pages.Shared;
@@ -10,11 +9,10 @@ namespace BoardGameVoter.Pages.Lobby
     {
         private readonly LobbyManager __LobbyManager;
 
-        public IndexModel(ISessionManager sessionManager, ILogger<IndexModel> logger, ISignInService service,
-            IDBContextService dbContextService)
-            : base(sessionManager, logger, service)
+        public IndexModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __LobbyManager = new LobbyManager(dbContextService);
+            __LobbyManager = new LobbyManager(bGVServiceProvider);
         }
 
         public void OnGet()

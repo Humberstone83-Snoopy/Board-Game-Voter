@@ -1,6 +1,6 @@
 ﻿using BoardGameVoter.Models.EntityModels;
 
-namespace BoardGameVoter.Services
+namespace BoardGameVoter.Logic.SessionManagers
 {
     public interface ISessionManager
     {
@@ -11,10 +11,10 @@ namespace BoardGameVoter.Services
         bool IsActiveSession(int userSessionID);
         void UpdateSessionInteraction();
 
-        public User User { get; }
+        User User { get; }
 
-        public UserSession UserSession { get; }
+        UserSession UserSession { get; }
 
-        public int UserSessionID { get; set; }
+        int UserSessionID { get; set; }
     }
 }

@@ -1,4 +1,3 @@
-using BoardGameVoter.Data;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
@@ -13,11 +12,10 @@ namespace BoardGameVoter.Pages.Account
     {
         private PasswordResetTokenRepository __PasswordResetTokenRepository;
 
-        public ResetPasswordModel(ISessionManager sessionManager, ILogger<ResetPasswordModel> logger, ISignInService signInService,
-            IDBContextService dbContextService)
-        : base(sessionManager, logger, signInService)
+        public ResetPasswordModel(IBGVServiceProvider bGVServiceProvider)
+        : base(bGVServiceProvider)
         {
-            __PasswordResetTokenRepository = new PasswordResetTokenRepository(dbContextService);
+            __PasswordResetTokenRepository = new PasswordResetTokenRepository(bGVServiceProvider);
         }
 
         private PasswordResetToken GetToken()

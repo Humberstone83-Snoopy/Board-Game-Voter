@@ -1,4 +1,4 @@
-﻿using BoardGameVoter.Data;
+﻿using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Repositorys.Library;
@@ -6,13 +6,14 @@ using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.UserLibrarys
 {
-    public class UserLibraryManager : IUserLibraryManager
+    public class UserLibraryManager : BusinessBase, IUserLibraryManager
     {
         private readonly LibraryGameRepository __LibraryGameRepository;
 
-        public UserLibraryManager(IDBContextService dbContextService)
+        public UserLibraryManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
+            __LibraryGameRepository = new LibraryGameRepository(bGVServiceProvider);
         }
 
         public List<UserLibraryTableModel> GetUserLibrary(int userID)

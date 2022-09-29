@@ -1,5 +1,4 @@
-﻿using BoardGameVoter.Data;
-using BoardGameVoter.Models.EntityModels;
+﻿using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys.Shared;
 using BoardGameVoter.Services;
 
@@ -7,8 +6,8 @@ namespace BoardGameVoter.Repositorys.Locations
 {
     public class LocationRepository : RepositoryBase<Location>, ILocationRepository
     {
-        public LocationRepository(IDBContextService dbContextService) 
-            : base(dbContextService)
+        public LocationRepository(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
         }
 

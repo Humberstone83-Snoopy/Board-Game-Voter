@@ -9,12 +9,10 @@ namespace BoardGameVoter.Pages.Account
 {
     public class LoginModel : BoardGameVoterPageBase
     {
-        private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(ISessionManager sessionManager, ILogger<LoginModel> logger, ISignInService signInService)
-            : base(sessionManager, logger, signInService)
+        public LoginModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            _logger = logger;
         }
 
         public bool IsValidEmail(string emailaddress)
@@ -52,12 +50,12 @@ namespace BoardGameVoter.Pages.Account
                     var result = SignInManager.PasswordSignIn(user, Password, RememberMe, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User logged in.");
+                        Logger.LogInformation("User logged in.");
                         return LocalRedirect(ReturnUrl);
                     }
                     if (result.IsLockedOut)
                     {
-                        _logger.LogWarning("User account locked out.");
+                        Logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
                     else

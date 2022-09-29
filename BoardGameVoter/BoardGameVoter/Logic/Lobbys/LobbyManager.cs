@@ -1,4 +1,5 @@
-﻿using BoardGameVoter.Models.EntityModels;
+﻿using BoardGameVoter.Logic.Shared;
+using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Repositorys.Library;
@@ -9,7 +10,7 @@ using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.Lobbys
 {
-    public class LobbyManager : ILobbyManager
+    public class LobbyManager : BusinessBase, ILobbyManager
     {
         private readonly LibraryGameRepository __LibraryGameRepository;
         private readonly LocationRepository __LocationRepository;
@@ -17,13 +18,14 @@ namespace BoardGameVoter.Logic.Lobbys
         private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
         private readonly VoteSessionRepository __VoteSessionRepository;
 
-        public LobbyManager(IDBContextService dbContextService)
+        public LobbyManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
-            __UserRepository = new UserRepository(dbContextService);
-            __LocationRepository = new LocationRepository(dbContextService);
-            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(bGVServiceProvider);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(bGVServiceProvider);
+            __UserRepository = new UserRepository(bGVServiceProvider);
+            __LocationRepository = new LocationRepository(bGVServiceProvider);
+            __LibraryGameRepository = new LibraryGameRepository(bGVServiceProvider);
         }
 
         public List<LobbyTableModel> GetPublicLobby()

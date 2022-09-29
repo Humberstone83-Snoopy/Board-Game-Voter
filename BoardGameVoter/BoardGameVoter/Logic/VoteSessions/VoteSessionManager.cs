@@ -1,4 +1,4 @@
-﻿using BoardGameVoter.Data;
+﻿using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
@@ -8,7 +8,7 @@ using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.VoteSessions
 {
-    public class VoteSessionManager : IVoteSessionManager
+    public class VoteSessionManager : BusinessBase, IVoteSessionManager
     {
         private const int STARTING_VOTE_AMOUNT = 5; // Each user gets 5 votes
 
@@ -17,12 +17,13 @@ namespace BoardGameVoter.Logic.VoteSessions
         private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
         private readonly VoteSessionRepository __VoteSessionRepository;
 
-        public VoteSessionManager(IDBContextService dbContextService)
+        public VoteSessionManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
-            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(dbContextService);
-            __VoteManager = new VoteManager(dbContextService);
-            __BoardGameRepository = new BoardGameRepository(dbContextService);
+            __VoteSessionRepository = new VoteSessionRepository(bGVServiceProvider);
+            __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(bGVServiceProvider);
+            __VoteManager = new VoteManager(bGVServiceProvider);
+            __BoardGameRepository = new BoardGameRepository(bGVServiceProvider);
         }
 
         public VoteSessionAttendee AddNewAttendee(int userID, int voteSessionID)

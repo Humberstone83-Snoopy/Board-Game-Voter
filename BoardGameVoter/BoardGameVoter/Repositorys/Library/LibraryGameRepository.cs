@@ -1,5 +1,4 @@
-﻿using BoardGameVoter.Data;
-using BoardGameVoter.Models.EntityModels;
+﻿using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Repositorys.BoardGames;
 using BoardGameVoter.Repositorys.Shared;
@@ -12,16 +11,16 @@ namespace BoardGameVoter.Repositorys.Library
     {
         private BoardGameRepository __BoardGameRepository;
 
-        public LibraryGameRepository(IDBContextService dbContextService)
-            : this(dbContextService, new())
+        public LibraryGameRepository(IBGVServiceProvider bGVServiceProvider)
+            : this(bGVServiceProvider, new())
         {
         }
 
-        public LibraryGameRepository(IDBContextService dbContextService, LibraryGameLoadOptions loadOptions)
-            : base(dbContextService, loadOptions)
+        public LibraryGameRepository(IBGVServiceProvider bGVServiceProvider, LibraryGameLoadOptions loadOptions)
+            : base(bGVServiceProvider, loadOptions)
         {
 
-            __BoardGameRepository = new BoardGameRepository(dbContextService);
+            __BoardGameRepository = new BoardGameRepository(bGVServiceProvider);
         }
 
         public void AddNew(User user, BoardGame boardGame)

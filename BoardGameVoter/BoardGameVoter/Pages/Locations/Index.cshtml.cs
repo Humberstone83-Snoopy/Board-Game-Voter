@@ -1,4 +1,3 @@
-using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Repositorys.Locations;
@@ -10,11 +9,10 @@ namespace BoardGameVoter.Pages.Locations
     {
         private readonly LocationRepository __LocationRepository;
 
-        public IndexModel(ISessionManager sessionManager, ILogger<IndexModel> logger, ISignInService service,
-            IDBContextService dbContextService)
-            : base(sessionManager, logger, service)
+        public IndexModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __LocationRepository = new LocationRepository(dbContextService);
+            __LocationRepository = new LocationRepository(bGVServiceProvider);
         }
 
         public void OnGet()

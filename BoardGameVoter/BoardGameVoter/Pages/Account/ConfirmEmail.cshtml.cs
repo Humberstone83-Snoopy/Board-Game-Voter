@@ -1,4 +1,3 @@
-using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Repositorys.EmailConfirmationTokens;
@@ -11,12 +10,10 @@ namespace BoardGameVoter.Pages.Account
     {
         private EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
 
-        public ConfirmEmailModel(ISessionManager sessionManager, ILogger<ConfirmEmailModel> logger, ISignInService signInService,
-            IDBContextService dbContextService)
-            
-            : base(sessionManager, logger, signInService)
+        public ConfirmEmailModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(dbContextService);
+            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(bGVServiceProvider);
         }
 
         private EmailConfirmationToken GetToken()

@@ -1,4 +1,3 @@
-using BoardGameVoter.Data;
 using BoardGameVoter.Logic.UserLibrarys;
 using BoardGameVoter.Models.TableModels;
 using BoardGameVoter.Pages.Shared;
@@ -12,11 +11,10 @@ namespace BoardGameVoter.Pages.Library
 
         private readonly UserLibraryManager __UserLibraryManager;
 
-        public IndexModel(ISessionManager sessionManager, ILogger<IndexModel> logger, ISignInService service,
-            IDBContextService dbContextService)
-            : base(sessionManager, logger, service)
+        public IndexModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __UserLibraryManager = new UserLibraryManager(dbContextService);
+            __UserLibraryManager = new UserLibraryManager(bGVServiceProvider);
         }
 
         public void OnGet()

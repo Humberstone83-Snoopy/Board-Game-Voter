@@ -5,8 +5,8 @@ namespace BoardGameVoter.Pages.Account
 {
     public class ResetPasswordConfirmationModel : BoardGameVoterPageBase
     {
-        public ResetPasswordConfirmationModel(ISessionManager sessionManager, ILogger<ResetPasswordConfirmationModel> logger, ISignInService signInService)
-            : base(sessionManager, logger, signInService)
+        public ResetPasswordConfirmationModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
         }
     }

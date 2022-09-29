@@ -1,5 +1,3 @@
-using BoardGameVoter.Data;
-using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.BoardGames;
 using BoardGameVoter.Models.Enums;
 using BoardGameVoter.Pages.Shared;
@@ -23,12 +21,11 @@ namespace BoardGameVoter.Pages.Library
         private readonly BoardGameRepository __BoardGameRepository;
         private readonly LibraryGameRepository __LibraryGameRepository;
 
-        public AddModel(ISessionManager sessionManager, ILogger<AddModel> logger, ISignInService service,
-            IDBContextService dbContextService) 
-            : base(sessionManager, logger, service)
+        public AddModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __BoardGameRepository = new BoardGameRepository(dbContextService);
-            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
+            __BoardGameRepository = new BoardGameRepository(bGVServiceProvider);
+            __LibraryGameRepository = new LibraryGameRepository(bGVServiceProvider);
         }
 
         private void AddNewBoardGame()

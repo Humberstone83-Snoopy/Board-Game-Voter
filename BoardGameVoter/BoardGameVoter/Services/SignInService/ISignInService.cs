@@ -1,7 +1,7 @@
 ﻿using BoardGameVoter.Logic.LoginManagers;
 using BoardGameVoter.Logic.Users;
 
-namespace BoardGameVoter.Services
+namespace BoardGameVoter.Services.SignInService
 {
     public interface ISignInService
     {

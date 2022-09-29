@@ -5,8 +5,8 @@ namespace BoardGameVoter.Pages.Account
 {
     public class LockoutModel : BoardGameVoterPageBase
     {
-        public LockoutModel(ISessionManager sessionManager, ILogger<LockoutModel> logger, ISignInService signInService)
-            : base(sessionManager, logger, signInService)
+        public LockoutModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
         }
     }

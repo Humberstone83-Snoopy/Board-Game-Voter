@@ -9,10 +9,10 @@ namespace BoardGameVoter.Pages.Account
     {
         //private MailController _mailController;
 
-        public ForgotPasswordModel(ISessionManager sessionManager, ILogger<ForgotPasswordModel> logger, ISignInService signInService
+        public ForgotPasswordModel(IBGVServiceProvider bGVServiceProvider
             //, IMailService mailService) 
             )
-            : base(sessionManager, logger, signInService)
+            : base(bGVServiceProvider)
         {
             //_mailController = new MailController(mailService);
         }

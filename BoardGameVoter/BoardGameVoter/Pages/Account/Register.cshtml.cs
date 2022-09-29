@@ -11,15 +11,13 @@ namespace BoardGameVoter.Pages.Account
     {
         private const bool REQUIRECONFIRMEDACCOUNT = false;
 
-        private readonly ILogger<RegisterModel> _logger;
         //private MailController _mailController;
 
-        public RegisterModel(ISessionManager sessionManager, ILogger<RegisterModel> logger, ISignInService signInService
+        public RegisterModel(IBGVServiceProvider bGVServiceProvider
             //, IMailService mailService) 
             )
-            : base(sessionManager, logger, signInService)
+            : base(bGVServiceProvider)
         {
-            _logger = logger;
             //_mailController = new MailController(mailService);
         }
 
@@ -49,7 +47,7 @@ namespace BoardGameVoter.Pages.Account
                 var result = UserManager.CreateNewUser(user, Password);
                 if (result)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    Logger.LogInformation("User created a new account with password.");
 
                     //EmailConfirmationToken token = UserManager.GenerateEmailConfirmationToken(user);
 

@@ -1,4 +1,3 @@
-using BoardGameVoter.Data;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Pages.Shared;
@@ -15,13 +14,12 @@ namespace BoardGameVoter.Pages.Lobby
         private readonly VoteSessionRepository __VoteSessionRepository;
         private readonly VoteSessionResultRepository __VoteSessionResultRepository;
 
-        public ResultsModel(ISessionManager sessionManager, ILogger<ResultsModel> logger, ISignInService service,
-            IDBContextService dbContextService)
-            : base(sessionManager, logger, service)
+        public ResultsModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __VoteSessionResultRepository = new VoteSessionResultRepository(dbContextService);
-            __VoteSessionRepository = new VoteSessionRepository(dbContextService);
-            __LibraryGameRepository = new LibraryGameRepository(dbContextService);
+            __VoteSessionResultRepository = new VoteSessionResultRepository(bGVServiceProvider);
+            __VoteSessionRepository = new VoteSessionRepository(bGVServiceProvider);
+            __LibraryGameRepository = new LibraryGameRepository(bGVServiceProvider);
         }
 
         public void OnGet()

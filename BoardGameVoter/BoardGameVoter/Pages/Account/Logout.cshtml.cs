@@ -6,12 +6,10 @@ namespace BoardGameVoter.Pages.Account
 {
     public class LogoutModel : BoardGameVoterPageBase
     {
-        private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(ISessionManager sessionManager, ILogger<LogoutModel> logger, ISignInService signInService)
-            : base(sessionManager, logger, signInService)
+        public LogoutModel(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            _logger = logger;
         }
 
         public void OnGet()
@@ -21,7 +19,7 @@ namespace BoardGameVoter.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             SignInManager.SignOut();
-            _logger.LogInformation("User logged out.");
+            Logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);

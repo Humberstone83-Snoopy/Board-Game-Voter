@@ -1,4 +1,5 @@
-﻿using BoardGameVoter.Data;
+﻿using BoardGameVoter.Logic.SessionManagers;
+using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys.EmailConfirmationTokens;
@@ -8,20 +9,21 @@ using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.Users
 {
-    public class UserManager : IUserManager
+    public class UserManager : BusinessBase, IUserManager
     {
-        private EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
-        private PasswordResetTokenRepository __PasswordResetTokenRepository;
-        private ISessionManager __SessionManager;
+        private readonly EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
+        private readonly SessionManager __SessionManager;
+        private readonly PasswordResetTokenRepository __PasswordResetTokenRepository;
+        private readonly UserRepository __UserRepository;
         private User __User;
-        private UserRepository __UserRepository;
 
-        public UserManager(ISessionManager sessionManager, IDBContextService dbContextService)
+        public UserManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __UserRepository = new UserRepository(dbContextService);
-            __SessionManager = sessionManager;
-            __PasswordResetTokenRepository = new PasswordResetTokenRepository(dbContextService);
-            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(dbContextService);
+            __UserRepository = new UserRepository(bGVServiceProvider);
+            __PasswordResetTokenRepository = new PasswordResetTokenRepository(bGVServiceProvider);
+            __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(bGVServiceProvider);
+            __SessionManager = new SessionManager(bGVServiceProvider);
         }
 
         public Task AddToRoleAsync(User user, object p)

@@ -1,6 +1,6 @@
 ﻿using BoardGameVoter.Data.Shared;
 
-namespace BoardGameVoter.Services
+namespace BoardGameVoter.Services.DBContextService
 {
     public interface IDBContextService
     {

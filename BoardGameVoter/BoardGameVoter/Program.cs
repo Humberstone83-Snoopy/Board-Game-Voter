@@ -1,5 +1,9 @@
 using BoardGameVoter.Data;
+using BoardGameVoter.Logic.SessionManagers;
 using BoardGameVoter.Services;
+using BoardGameVoter.Services.DBContextService;
+using BoardGameVoter.Services.SessionService;
+using BoardGameVoter.Services.SignInService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,18 +33,16 @@ builder.Services.AddDbContext<LocationDBContext>(options => options.UseSqlServer
 builder.Services.AddDbContext<PasswordResetTokenDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 builder.Services.AddDbContext<UserDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 builder.Services.AddDbContext<UserSessionDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
-//builder.Services.AddDbContext<VoteDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
-//builder.Services.AddDbContext<VoteSessionAttendeeDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 builder.Services.AddDbContext<VoteSessionDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
-//builder.Services.AddDbContext<VoteSessionResultDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 
 // Transient Services
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 // Scoped Services
 builder.Services.AddScoped<ISignInService, SignInService>();
-builder.Services.AddScoped<ISessionManager, SessionManager>();
 builder.Services.AddScoped<IDBContextService, DBContextService>();
+builder.Services.AddScoped<IBGVServiceProvider, BGVServiceProvider>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 
 var app = builder.Build();
 
@@ -65,9 +67,9 @@ app.UseSession();
 app.MapRazorPages();
 
 // Middleware to Redirect && Update interaction
-app.Use(async (ctx, next) =>
+app.Use(async (context, next) =>
 {
-    ISessionManager sessionManager = ctx.RequestServices.GetRequiredService<ISessionManager>();
+    ISessionManager sessionManager = context.RequestServices.GetRequiredService<ISessionService>().SessionManager;
 
     List<string> AnnoymousPages = new()
     {
@@ -86,9 +88,9 @@ app.Use(async (ctx, next) =>
         "/Account/ResetPasswordConfirmation"
     };
 
-    if (sessionManager.HandleSession(!AnnoymousPages.Contains(ctx.Request.Path.Value ?? string.Empty)))
+    if (sessionManager.HandleSession(!AnnoymousPages.Contains(context.Request.Path.Value ?? string.Empty)))
     {
-        ctx.Response.Redirect("/Account/Login");
+        context.Response.Redirect("/Account/Login");
         return;
     }
 

@@ -6,13 +6,13 @@ namespace BoardGameVoter.Repositorys.BoardGames
 {
     public class BoardGameRepository : RepositoryBase<BoardGame, BoardGameLoadOptions>, IBoardGameRepository
     {
-        public BoardGameRepository(IDBContextService dbContextService)
-            : this(dbContextService, new())
+        public BoardGameRepository(IBGVServiceProvider bGVServiceProvider)
+            : this(bGVServiceProvider, new())
         {
         }
 
-        public BoardGameRepository(IDBContextService dbContextService, BoardGameLoadOptions boardGameLoadOptions)
-            : base(dbContextService, boardGameLoadOptions)
+        public BoardGameRepository(IBGVServiceProvider bGVServiceProvider, BoardGameLoadOptions boardGameLoadOptions)
+            : base(bGVServiceProvider, boardGameLoadOptions)
         {
         }
 

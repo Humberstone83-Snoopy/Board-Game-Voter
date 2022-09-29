@@ -1,5 +1,4 @@
-﻿using BoardGameVoter.Data;
-using BoardGameVoter.Models.EntityModels.VoteSessions;
+﻿using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Repositorys.Shared;
 using BoardGameVoter.Services;
 
@@ -7,13 +6,13 @@ namespace BoardGameVoter.Repositorys.VoteSessions
 {
     public class VoteRepository : RepositoryBase<Vote, VoteSession, VoteLoadOptions>, IVoteRepository
     {
-        public VoteRepository(IDBContextService dbContextService)
-            : this(dbContextService, new())
+        public VoteRepository(IBGVServiceProvider bGVServiceProvider)
+            : this(bGVServiceProvider, new())
         {
         }
 
-        public VoteRepository(IDBContextService dbContextService, VoteLoadOptions voteLoadOptions)
-            : base(dbContextService, voteLoadOptions)
+        public VoteRepository(IBGVServiceProvider bGVServiceProvider, VoteLoadOptions voteLoadOptions)
+            : base(bGVServiceProvider, voteLoadOptions)
         {
         }
 

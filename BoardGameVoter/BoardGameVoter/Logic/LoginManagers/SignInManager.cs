@@ -1,4 +1,5 @@
-﻿using BoardGameVoter.Data;
+﻿using BoardGameVoter.Logic.SessionManagers;
+using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Repositorys.Users;
@@ -6,15 +7,16 @@ using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Logic.LoginManagers
 {
-    public class SignInManager : ISignInManager
+    public class SignInManager : BusinessBase, ISignInManager
     {
-        private ISessionManager __SessionManager;
-        private UserRepository __UserRepository;
+        private readonly ISessionManager __SessionManager;
+        private readonly UserRepository __UserRepository;
 
-        public SignInManager(IDBContextService dbContextService, ISessionManager sessionManager)
+        public SignInManager(IBGVServiceProvider bGVServiceProvider)
+            : base(bGVServiceProvider)
         {
-            __UserRepository = new UserRepository(dbContextService);
-            __SessionManager = sessionManager;
+            __UserRepository = new UserRepository(bGVServiceProvider);
+            __SessionManager = new SessionManager(bGVServiceProvider);
         }
 
         public bool IsSignedIn()
