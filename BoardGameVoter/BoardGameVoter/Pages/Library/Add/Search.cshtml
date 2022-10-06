@@ -1,0 +1,46 @@
+﻿@page
+@using BoardGameVoter.Models.EntityModels.BoardGames
+@using BoardGameVoter.Models.Enums
+@model SearchModel
+@{
+    ViewData["Title"] = "Search Board Games";
+}
+<form id="AddNew" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="form-group">
+        <a href="/Library/Add/New" class="btn btn-secondary">New</a>
+    </div>
+    <table id="BoardGameSearchTable" class="table table-striped table-bordered dt-responsive">
+        <thead>
+            <tr>
+                <th>BoardGameID</th>
+                <th>Title</th>
+                <th>Release</th>
+                <th>Description</th>
+                <th>Publisher</th>
+                <th>Rating</th>
+                <th>Weight</th>
+                <th>Add</th>
+        </thead>
+        <tbody>
+            @{
+                foreach (BoardGame _BoardGame in Model.BoardGames)
+                {
+                    <tr>
+                        <td>@_BoardGame.ID</td>
+                        <td>@_BoardGame.Title</td>
+                        <td>@_BoardGame.ReleaseDate.GetValueOrDefault(new DateTime(9999,1,1)).Year</td>
+                        <td>@_BoardGame.Description_Short</td>
+                        <td>@_BoardGame.Publisher</td>
+                        <td>@_BoardGame.Rating.GetValueOrDefault(0)</td>
+                        <td>@_BoardGame.Weight.GetValueOrDefault(Weight.Undefined)</td>
+                        <td><a href="/Library/Add/Existing/@_BoardGame.UID" class="btn btn-primary">+</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</form>
+@section Scripts{
+    <script src="~/js/Library/Add/Search.js" asp-append-version="true"></script>
+}

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NcepdI4VQD2l0LV6dOFn6P8o0lv78a1QqvwQP66IEUQ=",
+  "Hash": "TbPiu4lFhAMlPD+wNAxCkd55joDIoCXC+klKehCoTn0=",
   "Source": "BoardGameVoter",
   "BasePath": "_content/BoardGameVoter",
   "Mode": "Default",
@@ -153,12 +153,12 @@
       "OriginalItemSpec": "wwwroot\\js\\Index.js"
     },
     {
-      "Identity": "C:\\Users\\JackHumberstone\\source\\repos\\humberstone83\\board-game-voter\\BoardGameVoter\\BoardGameVoter\\wwwroot\\js\\Library\\Add.js",
+      "Identity": "C:\\Users\\JackHumberstone\\source\\repos\\humberstone83\\board-game-voter\\BoardGameVoter\\BoardGameVoter\\wwwroot\\js\\Library\\Add\\New.js",
       "SourceId": "BoardGameVoter",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\JackHumberstone\\source\\repos\\humberstone83\\board-game-voter\\BoardGameVoter\\BoardGameVoter\\wwwroot\\",
       "BasePath": "_content/BoardGameVoter",
-      "RelativePath": "js/Library/Add.js",
+      "RelativePath": "js/Library/Add/New.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -167,7 +167,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\Library\\Add.js"
+      "OriginalItemSpec": "wwwroot\\js\\Library\\Add\\New.js"
+    },
+    {
+      "Identity": "C:\\Users\\JackHumberstone\\source\\repos\\humberstone83\\board-game-voter\\BoardGameVoter\\BoardGameVoter\\wwwroot\\js\\Library\\Add\\Search.js",
+      "SourceId": "BoardGameVoter",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\JackHumberstone\\source\\repos\\humberstone83\\board-game-voter\\BoardGameVoter\\BoardGameVoter\\wwwroot\\",
+      "BasePath": "_content/BoardGameVoter",
+      "RelativePath": "js/Library/Add/Search.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Library\\Add\\Search.js"
     },
     {
       "Identity": "C:\\Users\\JackHumberstone\\source\\repos\\humberstone83\\board-game-voter\\BoardGameVoter\\BoardGameVoter\\wwwroot\\js\\Library\\Index.js",

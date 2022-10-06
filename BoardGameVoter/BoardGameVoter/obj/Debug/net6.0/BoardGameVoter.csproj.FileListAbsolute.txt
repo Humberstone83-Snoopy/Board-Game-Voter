@@ -104,3 +104,4 @@ C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVo
 C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\runtimes\win-x86\native\ClearScriptV8.win-x86.dll
 C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\obj\Debug\net6.0\BoardGameVoter.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\compilerconfig.json
+C:\Users\JackHumberstone\source\repos\humberstone83\board-game-voter\BoardGameVoter\BoardGameVoter\bin\Debug\net6.0\CsvHelper.dll

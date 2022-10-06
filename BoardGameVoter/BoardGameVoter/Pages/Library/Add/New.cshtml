@@ -1,0 +1,112 @@
+﻿@page
+@using BoardGameVoter.Models.Enums
+@model BoardGameVoter.Pages.Library.Add.NewModel
+@{
+    ViewData["Title"] = "Add New";
+}
+<form id="AddNew" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <br />
+    <h4>Please fill out all of the following section..</h4>
+    <br />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input id="TitleInput" asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Publisher"></label>
+        <input id="PublisherInput" asp-for="Publisher" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ReleaseDate"></label>
+        <input id="ReleaseDateInput" asp-for="ReleaseDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TagLine"></label>
+        <input id="TagLineInput" asp-for="TagLine" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input id="DescriptionInput" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="GameWeight"></label>
+        <select id="WeightSelect" asp-for="GameWeight" asp-items="@Model.WeightEnums" class="form-control" >
+            <option>Select weight ...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="AgeRating"></label>
+        <input id="AgeRatingInput" asp-for="AgeRating" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MinimumPlayers"></label>
+        <input id="MinPlayersInput" asp-for="MinimumPlayers" class="form-control" />
+        <label asp-for="MaximumPlayers"></label>
+        <input id="MaxPlayersInput" asp-for="MaximumPlayers" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MinimumPlayTime"></label>
+        <input id="MinPlayTimeInput" asp-for="MinimumPlayTime" class="form-control" />
+        <label asp-for="MaximumPlayTime"></label>
+        <input id="MaxPlayTimeInput" asp-for="MaximumPlayTime" class="form-control" />
+    </div>
+    <br />
+    <hr />
+    <br />
+    <h4>The following are optional extras to help provide more detailed information..</h4>
+    <br />
+    <h5>Type</h5>
+    <p>This is a generic way of classifying games by type.</p>
+    <br />
+    <div class="form-group">
+        <label asp-for="PrimaryType"></label>
+        <select id="PrimaryTypeSelect" asp-for="PrimaryType" asp-items="@Model.BoardGameTypes" class="form-control" >
+            <option>Select primary type ...</option>
+        </select>
+        <select id="SecondaryTypeSelect" asp-for="SecondaryType" asp-items="@Model.BoardGameTypes" class="form-control">
+            <option>Select secondary type ...</option>
+        </select>
+    </div>
+    <br />
+    <h5>Category</h5>
+    <p>Category refers to the general genre or theme of the game. Common categories include Zombies, World War II or Card Game.</p>
+    <br />
+    <div class="form-group">
+        <label asp-for="PrimaryCategory"></label>
+        <select id="PrimaryCategorySelect" asp-for="PrimaryCategory" asp-items="@Model.BoardGameCategories" class="form-control">
+            <option>Select primary category ...</option>
+        </select>
+        <select id="SecondaryCategorySelect" asp-for="SecondaryCategory" asp-items="@Model.BoardGameCategories" class="form-control">
+            <option>Select secondary category ...</option>
+        </select>
+        <select id="TertiaryCategorySelect" asp-for="TertiaryCategory" asp-items="@Model.BoardGameCategories" class="form-control">
+            <option>Select tertiary category ...</option>
+        </select>
+    </div>
+    <br />
+    <h5>Game Mechanics</h5>
+    <p>Game design mechanics refer to the mechanisms that guide game play. Common mechanisms include Cards, Dice, Spinners, Trading, Commodity building.</p>
+    <br />
+    <div class="form-group">
+        <label asp-for="PrimaryMechanism"></label>
+        <select id="PrimaryMechanismSelect" asp-for="PrimaryMechanism" asp-items="@Model.BoardGameMechanisms" class="form-control">
+            <option>Select primary mechanism ...</option>
+        </select>
+        <select id="SecondaryMechanismSelect" asp-for="SecondaryMechanism" asp-items="@Model.BoardGameMechanisms" class="form-control">
+            <option>Select secondary mechanism ...</option>
+        </select>
+        <select id="TertiaryMechanismSelect" asp-for="TertiaryMechanism" asp-items="@Model.BoardGameMechanisms" class="form-control">
+            <option>Select tertiary mechanism ...</option>
+        </select>
+    </div>
+    <br />
+    <div class="form-group">
+        <button id="Complete" class="btn btn-primary">Complete</button>
+        <button id="Clear" class="btn btn-secondary">Clear</button>
+        <a href="/Library/Add/Search" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/js/Library/Add/New.js" asp-append-version="true"></script>
+}

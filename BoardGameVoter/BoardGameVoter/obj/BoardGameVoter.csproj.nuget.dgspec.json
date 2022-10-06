@@ -41,6 +41,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[28.0.1, )"
+            },
             "LigerShark.WebOptimizer.Sass": {
               "target": "Package",
               "version": "[3.0.91, )"
