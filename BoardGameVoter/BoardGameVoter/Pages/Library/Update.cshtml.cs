@@ -14,7 +14,6 @@ namespace BoardGameVoter.Pages.Library
     public class UpdateModel : BoardGameVoterPageBase
     {
         private const string DELETE_ACTION = "DELETE";
-        private const string REDIRECT_ACTION = "REDIRECT";
         private const string SAVE_ACTION = "SAVE";
 
         private readonly BoardGameCategoryRepository __BoardGameCategoryRepository;
@@ -36,7 +35,7 @@ namespace BoardGameVoter.Pages.Library
         private void Delete()
         {
             __LibraryGameRepository.Delete(LibraryGame);
-            Action = REDIRECT_ACTION;
+            Response.Redirect("/library");
         }
 
         private void FetchData()
@@ -88,19 +87,19 @@ namespace BoardGameVoter.Pages.Library
             return OnGet();
         }
 
-        private void PopulateCategories()
-        {
-            IEnumerable<BoardGameCategory> _Categories = __BoardGameCategoryRepository.GetAll();
-            BoardGameCategories = new List<SelectListItem>();
-            foreach (BoardGameCategory category in _Categories)
-            {
-                BoardGameCategories.Add(new(category.Name, category.ID.ToString()));
-            }
-        }
+        //private void PopulateCategories()
+        //{
+        //    IEnumerable<BoardGameCategory> _Categories = __BoardGameCategoryRepository.GetAll();
+        //    BoardGameCategories = new List<SelectListItem>();
+        //    foreach (BoardGameCategory category in _Categories)
+        //    {
+        //        BoardGameCategories.Add(new(category.Name, category.ID.ToString()));
+        //    }
+        //}
 
         private void PopulateForm()
         {
-            PopulateSelects();
+            //PopulateSelects();
 
             Nickname = LibraryGame.Name;
             Title = BoardGame.Title;
@@ -126,32 +125,32 @@ namespace BoardGameVoter.Pages.Library
             TertiaryMechanism = BoardGame.TertiaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.TertiaryMechanismID ?? 0)?.Name ?? null : null;
         }
 
-        private void PopulateMechanisms()
-        {
-            IEnumerable<BoardGameMechanism> _Mechanisms = __BoardGameMechanismRepository.GetAll();
-            BoardGameMechanisms = new List<SelectListItem>();
-            foreach (BoardGameMechanism mechanism in _Mechanisms)
-            {
-                BoardGameMechanisms.Add(new(mechanism.Name, mechanism.ID.ToString()));
-            }
-        }
+        //private void PopulateMechanisms()
+        //{
+        //    IEnumerable<BoardGameMechanism> _Mechanisms = __BoardGameMechanismRepository.GetAll();
+        //    BoardGameMechanisms = new List<SelectListItem>();
+        //    foreach (BoardGameMechanism mechanism in _Mechanisms)
+        //    {
+        //        BoardGameMechanisms.Add(new(mechanism.Name, mechanism.ID.ToString()));
+        //    }
+        //}
 
-        private void PopulateSelects()
-        {
-            PopulateCategories();
-            PopulateTypes();
-            PopulateMechanisms();
-        }
+        //private void PopulateSelects()
+        //{
+        //    PopulateCategories();
+        //    PopulateTypes();
+        //    PopulateMechanisms();
+        //}
 
-        private void PopulateTypes()
-        {
-            IEnumerable<BoardGameType> _Types = __BoardGameTypeRepository.GetAll();
-            BoardGameTypes = new List<SelectListItem>();
-            foreach (BoardGameType type in _Types)
-            {
-                BoardGameTypes.Add(new(type.Name, type.ID.ToString()));
-            }
-        }
+        //private void PopulateTypes()
+        //{
+        //    IEnumerable<BoardGameType> _Types = __BoardGameTypeRepository.GetAll();
+        //    BoardGameTypes = new List<SelectListItem>();
+        //    foreach (BoardGameType type in _Types)
+        //    {
+        //        BoardGameTypes.Add(new(type.Name, type.ID.ToString()));
+        //    }
+        //}
 
         private void Update()
         {
@@ -217,9 +216,8 @@ namespace BoardGameVoter.Pages.Library
         public bool DisableInputs { get; set; } = true;
 
         [BindProperty]
-        [Required]
         [Display(Name = "Weight")]
-        public Weight GameWeight { get; set; }
+        public Weight GameWeight { get; set; } = Weight.Undefined;
 
         [BindProperty]
         [Required]

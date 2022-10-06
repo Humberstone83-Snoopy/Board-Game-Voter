@@ -76,10 +76,10 @@
                 <div class="form-group">
                     <label asp-for="PrimaryType"></label>
                     <select id="PrimaryTypeSelect" asp-for="PrimaryType" asp-items="@Model.BoardGameTypes" class="form-control" disabled="true">
-                        <option>@(Model.PrimaryType ?? "Please Select...")</option>
+                        <option>@(Model.PrimaryType ?? "Undefined")</option>
                     </select>
                     <select id="SecondaryTypeSelect" asp-for="SecondaryType" asp-items="@Model.BoardGameTypes" class="form-control" disabled="true">
-                        <option>@(Model.SecondaryType ?? "Please Select...")</option>
+                        <option>@(Model.SecondaryType ?? "Undefined")</option>
                     </select>
                 </div>
                 <br />
@@ -88,13 +88,13 @@
                 <div class="form-group">
                     <label asp-for="PrimaryCategory"></label>
                     <select id="PrimaryCategorySelect" asp-for="PrimaryCategory" asp-items="@Model.BoardGameCategories" class="form-control" disabled="true">
-                        <option>@(Model.PrimaryCategory ?? "Please Select...")</option>
+                        <option>@(Model.PrimaryCategory ?? "Undefined")</option>
                     </select>
                     <select id="SecondaryCategorySelect" asp-for="SecondaryCategory" asp-items="@Model.BoardGameCategories" class="form-control" disabled="true">
-                        <option>@(Model.SecondaryCategory ?? "Please Select...")</option>
+                        <option>@(Model.SecondaryCategory ?? "Undefined")</option>
                     </select>
                     <select id="TertiaryCategorySelect" asp-for="TertiaryCategory" asp-items="@Model.BoardGameCategories" class="form-control" disabled="true">
-                        <option>@(Model.TertiaryCategory ?? "Please Select...")</option>
+                        <option>@(Model.TertiaryCategory ?? "Undefined")</option>
                     </select>
                 </div>
                 <br />
@@ -103,13 +103,13 @@
                 <div class="form-group">
                     <label asp-for="PrimaryMechanism"></label>
                     <select id="PrimaryMechanismSelect" asp-for="PrimaryMechanism" asp-items="@Model.BoardGameMechanisms" class="form-control" disabled="true">
-                        <option>@(Model.PrimaryMechanism ?? "Please Select...")</option>
+                        <option>@(Model.PrimaryMechanism ?? "Undefined")</option>
                     </select>
                     <select id="SecondaryMechanismSelect" asp-for="SecondaryMechanism" asp-items="@Model.BoardGameMechanisms" class="form-control" disabled="true">
-                        <option>@(Model.SecondaryMechanism ?? "Please Select...")</option>
+                        <option>@(Model.SecondaryMechanism ?? "Undefined")</option>
                     </select>
                     <select id="TertiaryMechanismSelect" asp-for="TertiaryMechanism" asp-items="@Model.BoardGameMechanisms" class="form-control" disabled="true">
-                        <option>@(Model.TertiaryMechanism ?? "Please Select...")</option>
+                        <option>@(Model.TertiaryMechanism ?? "Undefined")</option>
                     </select>
                 </div>
             </section>
@@ -125,7 +125,7 @@
             <button id="Save" class="btn btn-primary">Save</button>
         }
         <button id="Delete" class="btn btn-secondary">Delete</button>
-        <button id="Return" class="btn btn-secondary">Return</button>
+        <a href="/library" class="btn btn-secondary">Return</a>
     </div>
     <input type="hidden" asp-for="Action" value="@Model.Action" />
     <input type="hidden" asp-for="DisableInputs" />
