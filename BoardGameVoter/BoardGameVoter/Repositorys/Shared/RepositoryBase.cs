@@ -139,6 +139,11 @@ namespace BoardGameVoter.Repositorys.Shared
             return Data.FirstOrDefault(entity => entity.UID.CompareTo(uid) == 0);
         }
 
+        public IEnumerable<TEntity> GetByUID(IEnumerable<Guid> uidList)
+        {
+            return Data.Where(entity => uidList.Contains(entity.UID));
+        }
+
         public bool Update(TEntity entity)
         {
             try

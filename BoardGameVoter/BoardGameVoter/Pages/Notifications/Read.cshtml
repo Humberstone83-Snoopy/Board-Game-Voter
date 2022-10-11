@@ -1,0 +1,13 @@
+﻿@page "{Notification_UID}"
+@model ReadModel
+@{
+    ViewData["Title"] = Model.Notification.Header;
+}
+<form>
+    <a href="/notifications" class="btn btn-primary">Back</a>
+    <hr />
+    <h1>@ViewData["Title"]</h1>
+    <br />
+    @Html.Raw(@Model.Notification.Message)
+    
+</form>

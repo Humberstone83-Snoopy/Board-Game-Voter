@@ -1,4 +1,5 @@
-﻿using BoardGameVoter.Models.Shared;
+﻿using BoardGameVoter.Models.EntityModels.Users;
+using BoardGameVoter.Models.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BoardGameVoter.Models.EntityModels.VoteSessions

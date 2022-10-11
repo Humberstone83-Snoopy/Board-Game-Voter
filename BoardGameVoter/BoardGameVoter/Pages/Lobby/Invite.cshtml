@@ -1,48 +1,60 @@
 ﻿@page "{VoteSessionUID}"
-@using BoardGameVoter.Models.EntityModels
+@using BoardGameVoter.Models.EntityModels.Users
 @model InviteModel
 @{
     ViewData["Title"] = "Invite Friends";
 }
 <form id="InviteForm" method="post">
     <h1>@ViewData["Title"]</h1>
+    <hr />
     <div class="row">
         <div class="col-md-4">
             <section>
-                <div class="form-group">
-                    <label asp-for="SelectedUser"></label>
-                    <select id="UserSelect" asp-for="SelectedUser" asp-items="@(new SelectList(Model.Users, nameof(BoardGameVoter.Models.EntityModels.User.UID), nameof(BoardGameVoter.Models.EntityModels.User.FirstName)))" class="form-control">
-                        <option>Invite User...</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button id="Add" class="btn btn-primary">Add</button>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6 col-md-offset-2">
-            <section>
-                <h3>Players</h3>
+                <h3>Invited Users</h3>
                 @{
                     bool IsHost = true;
                     foreach (User user in Model.InvitedUsers)
                     {
                         if (IsHost)
                         {
-                            user.FirstName += " (Host)";
+                            user.UserName += " (Host)";
                             IsHost = false;
                         }
-                        <h2>@user.FirstName</h2>
+                        <h2>@user.UserName</h2>
                     }
                 }
             </section>
         </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <table id="InviteTable" class="table table-striped table-bordered dt-responsive">
+                    <thead>
+                        <tr>
+                            <th>UID</th>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (User _Friend in Model.Friends)
+                            {
+                                <tr>
+                                    <td>@_Friend.UID</td>
+                                    <td class="RowUsername">@_Friend.UserName</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <br />
         <div class="form-group">
-            <button id="Complete" class="btn btn-primary">Complete</button>
+            <a href="/lobby/vote/@Model.VoteSessionUID" class="btn btn-primary">Complete</a>
         </div>
     </div>
-    <input type="hidden" asp-for="VoteSessionUID" value="@Model.VoteSessionUID" />
     <input type="hidden" asp-for="Action" value="@Model.Action" />
+    <input type="hidden" asp-for="User_UID" value="@Model.User_UID" />
 </form>
 @section Scripts{
     <script src="~/js/Lobby/Invite.js" asp-append-version="true"></script>

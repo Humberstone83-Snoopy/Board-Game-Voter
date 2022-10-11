@@ -2,6 +2,7 @@
 using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Repositorys.EmailConfirmationTokens;
 using BoardGameVoter.Repositorys.PasswordResetTokens;
 using BoardGameVoter.Repositorys.Users;
@@ -12,8 +13,9 @@ namespace BoardGameVoter.Logic.Users
     public class UserManager : BusinessBase, IUserManager
     {
         private readonly EmailConfirmationTokenRepository __EmailConfirmationTokenRepository;
-        private readonly SessionManager __SessionManager;
         private readonly PasswordResetTokenRepository __PasswordResetTokenRepository;
+        private readonly SessionManager __SessionManager;
+        private readonly UserPasswordRepository __UserPasswordRepository;
         private readonly UserRepository __UserRepository;
         private User __User;
 
@@ -21,6 +23,7 @@ namespace BoardGameVoter.Logic.Users
             : base(bGVServiceProvider)
         {
             __UserRepository = new UserRepository(bGVServiceProvider);
+            __UserPasswordRepository = new UserPasswordRepository(bGVServiceProvider);
             __PasswordResetTokenRepository = new PasswordResetTokenRepository(bGVServiceProvider);
             __EmailConfirmationTokenRepository = new EmailConfirmationTokenRepository(bGVServiceProvider);
             __SessionManager = new SessionManager(bGVServiceProvider);
@@ -49,19 +52,28 @@ namespace BoardGameVoter.Logic.Users
 
         public bool CreateNewUser(User newUser, string password)
         {
-            //Check for existing User
+
+            bool _Success = false;
             if (__UserRepository.GetAll().Any(user => user.EmailAddress.Equals(newUser.EmailAddress)))
             {
                 return false;
             }
 
-            // save user without password
-            User = newUser;
+            User = __UserRepository.Add(newUser);
+            if (User != null)
+            {
+                UserPassword _UserPassword = new()
+                {
+                    UserID = User?.ID ?? 0,
+                    PasswordHash = password
+                };
+                if (__UserPasswordRepository.Add(_UserPassword) != null)
+                {
+                    _Success = true;
+                }
+            }
 
-            // add password to throw away object and save new user
-            newUser.PasswordHash = password;
-
-            return (__UserRepository.Add(newUser)?.UID ?? Guid.Empty) != Guid.Empty;
+            return _Success;
         }
 
         public User FindByEmail(string email)
@@ -100,8 +112,8 @@ namespace BoardGameVoter.Logic.Users
             if (token != null && token.UserID == user.ID)
             {
                 __PasswordResetTokenRepository.Delete(token);
-                user.PasswordHash = password;
-                __UserRepository.Update(user);
+                user.Password.PasswordHash = password;
+                __UserPasswordRepository.Update(user.Password);
                 _UserUpdateResult.Succeeded = true;
             }
             else

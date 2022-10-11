@@ -50,6 +50,10 @@ namespace BoardGameVoter.Pages.Lobby
 
         public void OnGet()
         {
+            if (VoteSessionUID == Guid.Empty)
+            {
+                throw new ArgumentException("Must Pass Valid UID", nameof(VoteSessionUID));
+            }
             PopulateDetails();
         }
 
@@ -62,18 +66,26 @@ namespace BoardGameVoter.Pages.Lobby
         private void PopulateDetails()
         {
             VoteSession = __VoteSessionRepository.GetByUID(VoteSessionUID);
-            Attendees = __VoteSessionAttendeeRepository.GetByVoteSessionID(VoteSession.ID, true);
-            if (!Attendees.Any(attendee => attendee.UserID == UserManager.User.ID))
+            if (VoteSession != null)
             {
-                MyDetails = __VoteSessionManager.AddNewAttendee(UserManager.User.ID, VoteSession.ID);
-                Attendees.Add(MyDetails);
-                MyDetails.User = UserManager.User;
+                Attendees = __VoteSessionAttendeeRepository.GetByVoteSessionID(VoteSession.ID, true);
+                if (!Attendees.Any(attendee => attendee.UserID == UserManager.User.ID))
+                {
+                    MyDetails = __VoteSessionManager.AddNewAttendee(UserManager.User.ID, VoteSession.ID);
+                    Attendees.Add(MyDetails);
+                    MyDetails.User = UserManager.User;
+                }
+                if (MyDetails == null)
+                {
+                    MyDetails = Attendees.FirstOrDefault(attendee => attendee.UserID == UserManager.User.ID);
+                }
+                Location = __LocationRepository.GetByID(VoteSession.LocationID);
             }
-            if (MyDetails == null)
+            else
             {
-                MyDetails = Attendees.FirstOrDefault(attendee => attendee.UserID == UserManager.User.ID);
+                Response.Redirect("/Lobby");
             }
-            Location = __LocationRepository.GetByID(VoteSession.LocationID);
+
         }
 
         [BindProperty]

@@ -12,7 +12,6 @@ namespace BoardGameVoter.Services.DBContextService
             LocationDBContext locationDBContext,
             PasswordResetTokenDBContext passwordResetTokenDBContext,
             UserDBContext userDBContext,
-            UserSessionDBContext userSessionDBContext,
             VoteSessionDBContext voteSessionDBContext)
         {
             DBContexts = new()
@@ -23,7 +22,6 @@ namespace BoardGameVoter.Services.DBContextService
                 locationDBContext,
                 passwordResetTokenDBContext,
                 userDBContext,
-                userSessionDBContext,
                 voteSessionDBContext
             };
         }

@@ -1,4 +1,5 @@
 ﻿using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Repositorys.Library;
 using BoardGameVoter.Repositorys.Shared;

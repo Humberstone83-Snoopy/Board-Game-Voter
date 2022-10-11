@@ -1,10 +1,10 @@
-﻿using BoardGameVoter.Models.EntityModels;
+﻿using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Repositorys.Shared;
 using BoardGameVoter.Services;
 
 namespace BoardGameVoter.Repositorys.Users
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepository : RepositoryBase<User, UserLoadOptions>, IUserRepository
     {
         public UserRepository(IBGVServiceProvider bGVServiceProvider)
             : base(bGVServiceProvider)

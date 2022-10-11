@@ -71,6 +71,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Friends/Accept.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRnJpZW5kc1xBY2NlcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Friends/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRnJpZW5kc1xBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Friends/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRnJpZW5kc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Friends/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRnJpZW5kc1xTZWFyY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -93,6 +109,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Library/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGlicmFyeVxVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Lobby/Accept.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9iYnlcQWNjZXB0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Lobby/Add.cshtml]
@@ -125,6 +145,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Locations/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Notifications/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Notifications/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Notifications/Read.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uc1xSZWFkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/JackHumberstone/source/repos/humberstone83/board-game-voter/BoardGameVoter/BoardGameVoter/Pages/Privacy.cshtml]

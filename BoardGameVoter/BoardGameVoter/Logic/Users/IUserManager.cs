@@ -1,5 +1,6 @@
 ﻿using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 
 namespace BoardGameVoter.Logic.Users
 {

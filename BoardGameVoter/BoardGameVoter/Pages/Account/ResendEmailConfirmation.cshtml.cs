@@ -1,4 +1,4 @@
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;

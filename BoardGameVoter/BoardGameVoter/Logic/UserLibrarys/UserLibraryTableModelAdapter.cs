@@ -1,6 +1,5 @@
 ﻿using BoardGameVoter.Models.EntityModels;
 using BoardGameVoter.Models.TableModels;
-using BoardGameVoter.Repositorys;
 
 namespace BoardGameVoter.Logic.UserLibrarys
 {
@@ -20,8 +19,10 @@ namespace BoardGameVoter.Logic.UserLibrarys
                         Title = libraryGame.Name,
                         Description = libraryGame.BoardGame.Description_Short,
                         Publisher = libraryGame.BoardGame.Publisher,
-                        Players = $"{libraryGame.BoardGame.MinimumPlayers}-{libraryGame.BoardGame.MaximumPlayers}",
-                        Playtime = $"{libraryGame.BoardGame.MinimumPlayTime}-{libraryGame.BoardGame.MaximumPlayTime} mins",
+                        Players = libraryGame.BoardGame.MinimumPlayers != libraryGame.BoardGame.MaximumPlayers ?
+                            $"{libraryGame.BoardGame.MinimumPlayers}-{libraryGame.BoardGame.MaximumPlayers}" : $"{libraryGame.BoardGame.MinimumPlayers}",
+                        Playtime = libraryGame.BoardGame.MinimumPlayTime != libraryGame.BoardGame.MaximumPlayTime ?
+                            $"{libraryGame.BoardGame.MinimumPlayTime}-{libraryGame.BoardGame.MaximumPlayTime} mins" : $"{libraryGame.BoardGame.MinimumPlayTime} mins",
                         UID = libraryGame.UID
                     });
                 }

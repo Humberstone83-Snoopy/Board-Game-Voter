@@ -1,12 +1,12 @@
+using BoardGameVoter.Logic.Users;
 using BoardGameVoter.Logic.VoteSessions;
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Models.EntityModels.VoteSessions;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Repositorys.Users;
 using BoardGameVoter.Repositorys.VoteSessions;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace BoardGameVoter.Pages.Lobby
 {
@@ -15,6 +15,8 @@ namespace BoardGameVoter.Pages.Lobby
         private const string ADD_ACTION = "ADD";
         private const int STARTING_VOTE_AMOUNT = 5; // Each user gets 5 votes
 
+        private readonly NotificationManager __NotificationManager;
+        private readonly UserFriendRepository __UserFriendRepository;
         private readonly UserRepository __UserRepository;
         private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
         private readonly VoteSessionManager __VoteSessionManager;
@@ -24,10 +26,28 @@ namespace BoardGameVoter.Pages.Lobby
         public InviteModel(IBGVServiceProvider bGVServiceProvider)
             : base(bGVServiceProvider)
         {
+            __NotificationManager = new NotificationManager(bGVServiceProvider);
             __UserRepository = new UserRepository(bGVServiceProvider);
+            __UserFriendRepository = new UserFriendRepository(bGVServiceProvider);
             __VoteSessionRepository = new VoteSessionRepository(bGVServiceProvider);
             __VoteSessionAttendeeRepository = new VoteSessionAttendeeRepository(bGVServiceProvider);
             __VoteSessionManager = new VoteSessionManager(bGVServiceProvider);
+        }
+
+        private void AddHost(ref List<VoteSessionAttendee> attendees)
+        {
+            if (!attendees.Select(attendee => attendee.UserID).Contains(__VoteSession.HostUserID))
+            {
+                VoteSessionAttendee _Host = new()
+                {
+                    VoteSessionID = __VoteSession.ID,
+                    UserID = __VoteSession.HostUserID,
+                    VotesRemaining = STARTING_VOTE_AMOUNT
+                };
+                __VoteSessionAttendeeRepository.Add(_Host);
+                attendees.Add(_Host);
+                OpenVoting();
+            }
         }
 
         private void HandleAction()
@@ -36,16 +56,21 @@ namespace BoardGameVoter.Pages.Lobby
             {
                 InviteUser();
                 Action = string.Empty;
+                User_UID = Guid.Empty;
             }
         }
 
         private void InviteUser()
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && User_UID != Guid.Empty)
             {
-                User _SelectedAttendee = __UserRepository.GetByUID(SelectedUser);
+                User? _SelectedAttendee = __UserRepository.GetByUID(User_UID);
+                if (_SelectedAttendee == null)
+                {
+                    throw new ArgumentNullException(nameof(User_UID), "User Does Not Exist");
+                }
                 __VoteSessionManager.AddNewAttendee(_SelectedAttendee.ID, __VoteSession.ID);
-                // TODO: send notification
+                __NotificationManager.SendVoteSessionInvite(_SelectedAttendee.ID, UserManager.User.ID, VoteSessionUID);
             }
         }
 
@@ -79,42 +104,32 @@ namespace BoardGameVoter.Pages.Lobby
 
         private void PopulateForm()
         {
-            InvitedUsers = new List<User>()
-            {
-            };
+            List<VoteSessionAttendee> _ExistingAttendees = __VoteSessionAttendeeRepository.GetByVoteSessionID(__VoteSession.ID);
 
-            List<VoteSessionAttendee> _AttendeeList = __VoteSessionAttendeeRepository.GetByVoteSessionID(__VoteSession.ID);
+            AddHost(ref _ExistingAttendees);
+            PopulateInvitees(_ExistingAttendees);
+        }
 
-            if (!_AttendeeList.Select(attendee => attendee.UserID).Contains(__VoteSession.HostUserID))
-            {
-                VoteSessionAttendee _Host = new()
-                {
-                    VoteSessionID = __VoteSession.ID,
-                    UserID = __VoteSession.HostUserID,
-                    VotesRemaining = STARTING_VOTE_AMOUNT
-                };
-                __VoteSessionAttendeeRepository.Add(_Host);
-                _AttendeeList.Add(_Host);
-                OpenVoting();
-            }
+        private void PopulateInvitees(List<VoteSessionAttendee> attendees)
+        {
+            InvitedUsers = new();
 
-            Users = __UserRepository.GetAll().ToList();
+            IEnumerable<UserFriend> _Friends = __UserFriendRepository.GetByUserID(UserManager.User.ID).Where(friend => friend.IsAccepted);
+            Friends = __UserRepository.GetByID(_Friends.Select(friend => friend.FriendUserID)).ToList();
 
-            InvitedUsers.AddRange(Users.Where(user => _AttendeeList.Select(attendee => attendee.UserID).Contains(user.ID)));
+            InvitedUsers.AddRange(__UserRepository.GetByID(attendees.Select(attendee => attendee.UserID)));
 
-            Users.RemoveAll(user => InvitedUsers.Contains(user));
+            Friends.RemoveAll(user => InvitedUsers.Contains(user));
         }
 
         [BindProperty]
         public string Action { get; set; }
 
+        public List<User> Friends { get; set; }
         public List<User> InvitedUsers { get; set; }
 
         [BindProperty]
-        [Display(Name = "User")]
-        public Guid SelectedUser { get; set; }
-
-        public List<User> Users { get; set; }
+        public Guid User_UID { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public Guid VoteSessionUID { get; set; }

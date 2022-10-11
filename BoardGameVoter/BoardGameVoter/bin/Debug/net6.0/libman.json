@@ -9,6 +9,16 @@
     {
       "library": "datatables.net-bs5@1.12.1",
       "destination": "wwwroot/lib/datatables.net-bs5/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatables.net-buttons@2.2.3",
+      "destination": "wwwroot/lib/datatables.net-buttons/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatables.net-select@1.4.0",
+      "destination": "wwwroot/lib/datatables.net-select/"
     }
   ]
 }

@@ -1,4 +1,4 @@
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -40,14 +40,13 @@ namespace BoardGameVoter.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                string userName = Email;
                 if (IsValidEmail(Email))
                 {
                     User user = UserManager.FindByEmail(Email);
 
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                    var result = SignInManager.PasswordSignIn(user, Password, RememberMe, lockoutOnFailure: false);
+                    var result = SignInManager.PasswordSignIn(user, Password);
                     if (result.Succeeded)
                     {
                         Logger.LogInformation("User logged in.");

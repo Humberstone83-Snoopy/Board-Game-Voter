@@ -1,5 +1,6 @@
 using BoardGameVoter.Models;
 using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Pages.Shared;
 using BoardGameVoter.Repositorys.PasswordResetTokens;
 using BoardGameVoter.Services;

@@ -13,6 +13,12 @@
         controls.organise.addEventListener("click", function () {
             window.location.href = "/lobby/"
         });
+        controls.notifications.addEventListener("click", function () {
+            window.location.href = "/notifications/"
+        });
+        controls.friends.addEventListener("click", function () {
+            window.location.href = "/friends/"
+        });
     }
 
     function _init() {
@@ -27,7 +33,9 @@
             library: document.getElementById("Library"),
             profile: document.getElementById("Profile"),
             settings: document.getElementById("Settings"),
-            locations: document.getElementById("Locations")
+            locations: document.getElementById("Locations"),
+            notifications: document.getElementById("Notifications"),
+            friends: document.getElementById("Friends")
         };
     }
 

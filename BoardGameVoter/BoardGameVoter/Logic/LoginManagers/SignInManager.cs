@@ -1,7 +1,7 @@
 ﻿using BoardGameVoter.Logic.SessionManagers;
 using BoardGameVoter.Logic.Shared;
 using BoardGameVoter.Models;
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Repositorys.Users;
 using BoardGameVoter.Services;
 
@@ -10,13 +10,21 @@ namespace BoardGameVoter.Logic.LoginManagers
     public class SignInManager : BusinessBase, ISignInManager
     {
         private readonly ISessionManager __SessionManager;
+        private readonly UserPasswordRepository __UserPasswordRepository;
         private readonly UserRepository __UserRepository;
 
         public SignInManager(IBGVServiceProvider bGVServiceProvider)
             : base(bGVServiceProvider)
         {
             __UserRepository = new UserRepository(bGVServiceProvider);
+            __UserPasswordRepository = new UserPasswordRepository(bGVServiceProvider);
             __SessionManager = new SessionManager(bGVServiceProvider);
+        }
+
+        private bool ComparePassword(int userID, string givenPassword)
+        {
+            UserPassword _UserPassword = __UserPasswordRepository.GetByUserID(userID);
+            return _UserPassword.PasswordHash.Equals(givenPassword);
         }
 
         public bool IsSignedIn()
@@ -24,10 +32,10 @@ namespace BoardGameVoter.Logic.LoginManagers
             return __SessionManager.User != null;
         }
 
-        public SignInResult PasswordSignIn(User user, string password, bool rememberMe, bool lockoutOnFailure = false)
+        public SignInResult PasswordSignIn(User user, string givenPassword)
         {
             SignInResult result = new();
-            if (user != null && user.PasswordHash == password)
+            if (user != null && ComparePassword(user.ID, givenPassword))
             {
                 __SessionManager.AddUser(user);
 

@@ -1,5 +1,5 @@
 ﻿using BoardGameVoter.Models;
-using BoardGameVoter.Models.EntityModels;
+using BoardGameVoter.Models.EntityModels.Users;
 
 namespace BoardGameVoter.Logic.LoginManagers
 {
@@ -7,7 +7,7 @@ namespace BoardGameVoter.Logic.LoginManagers
     {
         bool IsSignedIn();
 
-        SignInResult PasswordSignIn(User user, string password, bool rememberMe, bool lockoutOnFailure = false);
+        SignInResult PasswordSignIn(User user, string password);
         Task RefreshSignInAsync(User currentUser);
         bool SignIn(User user);
         SignInResult SignOut();

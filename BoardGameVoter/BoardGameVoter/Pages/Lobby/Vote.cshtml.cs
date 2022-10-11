@@ -10,8 +10,6 @@ namespace BoardGameVoter.Pages.Lobby
 {
     public class VoteModel : BoardGameVoterPageBase
     {
-        private const string REDIRECT_ACTION = "REDIRECT";
-
         private readonly VoteManager __VoteManager;
         private readonly VoteSessionAttendeeRepository __VoteSessionAttendeeRepository;
         private readonly VoteSessionRepository __VoteSessionRepository;
@@ -44,7 +42,7 @@ namespace BoardGameVoter.Pages.Lobby
                 if (Votes.Sum() <= RemainingVotes)
                 {
                     SaveVotes();
-                    Action = REDIRECT_ACTION;
+                    Response.Redirect("/lobby/details/" + VoteSessionUID);
                 }
                 else
                 {

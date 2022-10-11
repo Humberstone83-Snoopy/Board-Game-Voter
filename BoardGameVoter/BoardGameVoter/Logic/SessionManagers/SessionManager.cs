@@ -1,6 +1,5 @@
 ﻿using BoardGameVoter.Logic.Shared;
-using BoardGameVoter.Models.EntityModels;
-using BoardGameVoter.Pages.Shared;
+using BoardGameVoter.Models.EntityModels.Users;
 using BoardGameVoter.Repositorys.Users;
 using BoardGameVoter.Services;
 
@@ -40,8 +39,6 @@ namespace BoardGameVoter.Logic.SessionManagers
             Session.Clear();
         }
 
-        public ISession Session { get => BGVServiceProvider.Session; }
-
         public void CreateNewSession()
         {
             if (Session.GetInt32(USER_SESSION_KEY_USER_ID) == null)
@@ -49,7 +46,7 @@ namespace BoardGameVoter.Logic.SessionManagers
                 UserSession _NewSession = new UserSession()
                 {
                     UID = Guid.NewGuid(),
-                    UserID = -1,
+                    UserID = null,
                     SessionStartTime = DateTime.Now,
                     LastInteraction = DateTime.Now
                 };
@@ -107,13 +104,15 @@ namespace BoardGameVoter.Logic.SessionManagers
             __UserSessionRepository.Update(_CurrentSession);
         }
 
+        public ISession Session { get => BGVServiceProvider.Session; }
+
         public User User
         {
             get
             {
                 if (__User == null && (UserSession?.UserID ?? -1) > 0)
                 {
-                    __User = __UserRepository.GetByID(UserSession.UserID);
+                    __User = __UserRepository.GetByID(UserSession?.UserID ?? -1);
                 }
                 return __User;
             }

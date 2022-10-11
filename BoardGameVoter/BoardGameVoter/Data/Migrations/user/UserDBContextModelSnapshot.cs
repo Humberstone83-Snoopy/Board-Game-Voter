@@ -22,7 +22,7 @@ namespace BoardGameVoter.data.migrations.user
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.User", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.User", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -60,10 +60,6 @@ namespace BoardGameVoter.data.migrations.user
                     b.Property<int>("Logins")
                         .HasColumnType("int");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("UID")
                         .HasColumnType("uniqueidentifier");
 
@@ -74,6 +70,175 @@ namespace BoardGameVoter.data.migrations.user
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserFriend", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("FriendUserID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FriendUserID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserFriends");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserNotification", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOpened")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecipientUserID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SendeeUserID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RecipientUserID");
+
+                    b.ToTable("UserNotifications");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserPassword", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserPasswords");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserSession", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("LastInteraction")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SessionStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserSessions");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserFriend", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.Users.User", "Friend")
+                        .WithMany()
+                        .HasForeignKey("FriendUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Friend");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserNotification", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("RecipientUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserPassword", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Users.UserSession", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

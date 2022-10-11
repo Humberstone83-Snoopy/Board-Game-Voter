@@ -10,6 +10,7 @@
     <Folder Include="Data\Database\" />
     <Folder Include="Data\Migrations\EmailConfirmationToken\" />
     <Folder Include="Data\Migrations\Location\" />
+    <Folder Include="Pages\Profile\" />
   </ItemGroup>
 
   <ItemGroup>

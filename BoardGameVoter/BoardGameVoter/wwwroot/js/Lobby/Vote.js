@@ -52,14 +52,10 @@
         _setUpControls();
         _bindEvents();
         _showRemainingVotes();
-        if (controls.action.value == "REDIRECT") {
-            window.location.href = "/lobby/details";
-        }
     }
 
     function _setUpControls() {
         controls = {
-            action: document.getElementById("Action"),
             totalRowCount: document.getElementById("TotalRowCount"),
             remainingVotesLabel: document.getElementById("RemainingVotesLabel"),
             remainingVotes: document.getElementById("RemainingVotes")

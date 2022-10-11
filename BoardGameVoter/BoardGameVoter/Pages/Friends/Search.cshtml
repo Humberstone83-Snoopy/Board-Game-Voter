@@ -1,0 +1,39 @@
+﻿@page
+@using BoardGameVoter.Models.TableModels
+@model SearchModel
+@{
+    ViewData["Title"] = "Search Users";
+}
+<form id="Search" method="post">
+    <h1>@ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="Username"></label>
+        <input id="UsernameInput" asp-for="Username" class="form-control" />
+    </div>
+    <br />
+    <table id="friendsDatatable" class="table table-striped table-bordered dt-responsive">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Total Games</th>
+                <th>Add</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (FriendsTableModel _TableModel in Model.Users)
+                {
+                    <tr>
+                        <td>@_TableModel.Username</td>
+                        <td>@_TableModel.FirstName</td>
+                        <td>@_TableModel.LastName</td>
+                        <td>@_TableModel.TotalGames</td>
+                        <td><a href="/friends/add/@_TableModel.UID" class="btn btn-primary">+</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</form>
