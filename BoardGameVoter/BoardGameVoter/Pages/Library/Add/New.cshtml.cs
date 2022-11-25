@@ -32,14 +32,14 @@ namespace BoardGameVoter.Pages.Library.Add
         {
             if (ModelState.IsValid)
             {
-                int.TryParse(PrimaryCategory, out int _PrimaryCategoryID);
-                int.TryParse(PrimaryType, out int _PrimaryTypeID);
-                int.TryParse(PrimaryMechanism, out int _PrimaryMechanismID);
-                int.TryParse(SecondaryCategory, out int _SecondaryCategoryID);
-                int.TryParse(SecondaryType, out int _SecondaryTypeID);
-                int.TryParse(SecondaryMechanism, out int _SecondaryMechanismID);
-                int.TryParse(TertiaryCategory, out int _TertiaryCategoryID);
-                int.TryParse(TertiaryMechanism, out int _TertiaryMechanismID);
+                //int.TryParse(PrimaryCategory, out int _PrimaryCategoryID);
+                //int.TryParse(PrimaryType, out int _PrimaryTypeID);
+                //int.TryParse(PrimaryMechanism, out int _PrimaryMechanismID);
+                //int.TryParse(SecondaryCategory, out int _SecondaryCategoryID);
+                //int.TryParse(SecondaryType, out int _SecondaryTypeID);
+                //int.TryParse(SecondaryMechanism, out int _SecondaryMechanismID);
+                //int.TryParse(TertiaryCategory, out int _TertiaryCategoryID);
+                //int.TryParse(TertiaryMechanism, out int _TertiaryMechanismID);
                 BoardGame? _Game = __BoardGameRepository.Add(new BoardGame()
                 {
                     AgeRating = AgeRating,
@@ -49,14 +49,14 @@ namespace BoardGameVoter.Pages.Library.Add
                     MaximumPlayTime = MaximumPlayTime,
                     MinimumPlayers = MinimumPlayers,
                     MinimumPlayTime = MinimumPlayTime,
-                    PrimaryCategoryID = _PrimaryCategoryID > 0 ? _PrimaryCategoryID : null,
-                    PrimaryTypeID = _PrimaryTypeID > 0 ? _PrimaryTypeID : null,
-                    PrimaryMechanismID = _PrimaryMechanismID > 0 ? _PrimaryMechanismID : null,
-                    SecondaryCategoryID = _SecondaryCategoryID > 0 ? _SecondaryCategoryID : null,
-                    SecondaryTypeID = _SecondaryTypeID > 0 ? _SecondaryTypeID : null,
-                    SecondaryMechanismID = _SecondaryMechanismID > 0 ? _SecondaryMechanismID : null,
-                    TertiaryCategoryID = _TertiaryCategoryID > 0 ? _TertiaryCategoryID : null,
-                    TertiaryMechanismID = _TertiaryMechanismID > 0 ? _TertiaryMechanismID : null,
+                    //PrimaryCategoryID = _PrimaryCategoryID > 0 ? _PrimaryCategoryID : null,
+                    //PrimaryTypeID = _PrimaryTypeID > 0 ? _PrimaryTypeID : null,
+                    //PrimaryMechanismID = _PrimaryMechanismID > 0 ? _PrimaryMechanismID : null,
+                    //SecondaryCategoryID = _SecondaryCategoryID > 0 ? _SecondaryCategoryID : null,
+                    //SecondaryTypeID = _SecondaryTypeID > 0 ? _SecondaryTypeID : null,
+                    //SecondaryMechanismID = _SecondaryMechanismID > 0 ? _SecondaryMechanismID : null,
+                    //TertiaryCategoryID = _TertiaryCategoryID > 0 ? _TertiaryCategoryID : null,
+                    //TertiaryMechanismID = _TertiaryMechanismID > 0 ? _TertiaryMechanismID : null,
                     Publisher = Publisher,
                     Rating = 0,
                     ReleaseDate = ReleaseDate,
@@ -168,17 +168,17 @@ namespace BoardGameVoter.Pages.Library.Add
         [Display(Name = "Minimum Play Time *")]
         public int MinimumPlayTime { get; set; }
 
-        [BindProperty]
-        [Display(Name = "Choose up to 3 Categories:")]
-        public string? PrimaryCategory { get; set; }
+        //[BindProperty]
+        //[Display(Name = "Choose up to 3 Categories:")]
+        //public string? PrimaryCategory { get; set; }
 
-        [BindProperty]
-        [Display(Name = "Choose up to 3 Mechanics:")]
-        public string? PrimaryMechanism { get; set; }
+        //[BindProperty]
+        //[Display(Name = "Choose up to 3 Mechanics:")]
+        //public string? PrimaryMechanism { get; set; }
 
-        [BindProperty]
-        [Display(Name = "Choose up to 2 Types:")]
-        public string? PrimaryType { get; set; }
+        //[BindProperty]
+        //[Display(Name = "Choose up to 2 Types:")]
+        //public string? PrimaryType { get; set; }
 
         [BindProperty]
         [Required(AllowEmptyStrings = false)]
@@ -190,25 +190,25 @@ namespace BoardGameVoter.Pages.Library.Add
         [Display(Name = "ReleaseDate *")]
         public DateTime ReleaseDate { get; set; } = DateTime.Today;
 
-        [BindProperty]
-        public string? SecondaryCategory { get; set; }
+        //[BindProperty]
+        //public string? SecondaryCategory { get; set; }
 
-        [BindProperty]
-        public string? SecondaryMechanism { get; set; }
+        //[BindProperty]
+        //public string? SecondaryMechanism { get; set; }
 
-        [BindProperty]
-        public string? SecondaryType { get; set; }
+        //[BindProperty]
+        //public string? SecondaryType { get; set; }
 
         [BindProperty]
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Tag Line *")]
         public string TagLine { get; set; }
 
-        [BindProperty]
-        public string? TertiaryCategory { get; set; }
+        //[BindProperty]
+        //public string? TertiaryCategory { get; set; }
 
-        [BindProperty]
-        public string? TertiaryMechanism { get; set; }
+        //[BindProperty]
+        //public string? TertiaryMechanism { get; set; }
 
         [BindProperty]
         [Required(AllowEmptyStrings = false)]

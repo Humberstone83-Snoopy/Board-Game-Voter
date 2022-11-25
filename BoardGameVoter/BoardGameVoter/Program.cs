@@ -1,10 +1,13 @@
 using BoardGameVoter.Data;
 using BoardGameVoter.Logic.SessionManagers;
+using BoardGameVoter.Models;
 using BoardGameVoter.Services;
 using BoardGameVoter.Services.DBContextService;
 using BoardGameVoter.Services.SessionService;
 using BoardGameVoter.Services.SignInService;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,9 @@ builder.Services.AddWebOptimizer(pipeline =>
 {
     pipeline.AddScssBundle("/css/all.css", "/css/BGV.scss");
 });
+
+// Setting up Blob Storage
+builder.Services.Configure<StorageAccountOptions>(builder.Configuration.GetSection("StorageAccount"));
 
 // DBContexts
 builder.Services.AddDbContext<BoardGameDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));

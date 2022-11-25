@@ -18,49 +18,16 @@ namespace BoardGameVoter.Models.EntityModels.BoardGames
 
         public int MinimumPlayers { get; set; }
         public int? MinimumPlayTime { get; set; }
-        public virtual BoardGameCategory? PrimaryCategory { get; set; }
 
-        [ForeignKey("PrimaryCategory")]
-        public int? PrimaryCategoryID { get; set; }
+        public virtual BoardGameType? BoardGameType { get; set; }
 
-        public virtual BoardGameMechanism? PrimaryMechanism { get; set; }
-
-        [ForeignKey("PrimaryMechanism")]
-        public int? PrimaryMechanismID { get; set; }
-
-        public virtual BoardGameType? PrimaryType { get; set; }
-
-        [ForeignKey("PrimaryType")]
-        public int? PrimaryTypeID { get; set; }
+        [ForeignKey("BoardGameType")]
+        public int? BoardGameTypeID { get; set; }
 
         public string? Publisher { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Rating { get; set; }
         public DateTime? ReleaseDate { get; set; }
-        public virtual BoardGameCategory? SecondaryCategory { get; set; }
-
-        [ForeignKey("SecondaryCategory")]
-        public int? SecondaryCategoryID { get; set; }
-
-        public virtual BoardGameMechanism? SecondaryMechanism { get; set; }
-
-        [ForeignKey("SecondaryMechanism")]
-        public int? SecondaryMechanismID { get; set; }
-
-        public virtual BoardGameType? SecondaryType { get; set; }
-
-        [ForeignKey("SecondaryType")]
-        public int? SecondaryTypeID { get; set; }
-
-        public virtual BoardGameCategory? TertiaryCategory { get; set; }
-
-        [ForeignKey("TertiaryCategory")]
-        public int? TertiaryCategoryID { get; set; }
-
-        public virtual BoardGameMechanism? TertiaryMechanism { get; set; }
-
-        [ForeignKey("TertiaryMechanism")]
-        public int? TertiaryMechanismID { get; set; }
 
         public string Title { get; set; }
 

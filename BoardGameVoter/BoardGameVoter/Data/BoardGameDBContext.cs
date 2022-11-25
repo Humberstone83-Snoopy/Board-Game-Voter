@@ -10,8 +10,11 @@ namespace BoardGameVoter.Data
         {
         }
 
+        public DbSet<BoardGame_BoardGameCategory> BoardGameCategoryData { get; set; }
+        public DbSet<BoardGame_BoardGameMechanism> BoardGameMechanismData { get; set; }
         public DbSet<BoardGameCategory> CategoryData { get; set; }
         public DbSet<BoardGameMechanism> MechanismData { get; set; }
         public DbSet<BoardGameType> TypeData { get; set; }
+        public DbSet<BoardGameImage> ImageData { get; set; }
     }
 }

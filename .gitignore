@@ -38,3 +38,11 @@
 /BoardGameVoter/BoardGameVoter/obj/project.assets.json
 /BoardGameVoter/BoardGameVoter/obj/project.nuget.cache
 /BoardGameVoter/BoardGameVoter/obj/staticwebassets.pack.sentinel
+*.props
+/BoardGameVoter/BoardGameVoter/obj/Debug/net6.0/apphost.exe
+/BoardGameVoter/BoardGameVoter/obj/Debug/net6.0/project.razor.vs.json
+/BoardGameVoter/BoardGameVoter/obj/Debug/net6.0/BoardGameVoter.MvcApplicationPartsAssemblyInfo.cs
+/BoardGameVoter/BoardGameVoter/obj/Debug/net6.0/staticwebassets.build.json
+*.json
+/BoardGameVoter/BoardGameVoter/bin/Debug/net6.0/BoardGameVoter.exe
+*.2

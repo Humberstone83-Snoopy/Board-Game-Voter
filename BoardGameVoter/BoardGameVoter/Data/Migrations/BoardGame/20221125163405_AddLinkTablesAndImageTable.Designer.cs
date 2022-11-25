@@ -4,16 +4,19 @@ using BoardGameVoter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BoardGameVoter.data.migrations.BoardGame
+namespace BoardGameVoter.Data.Migrations.BoardGame
 {
     [DbContext(typeof(BoardGameDBContext))]
-    partial class BoardGameDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221125163405_AddLinkTablesAndImageTable")]
+    partial class AddLinkTablesAndImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +128,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     b.HasIndex("BoardGameID");
 
-                    b.ToTable("BoardGameImages");
+                    b.ToTable("ImageData");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameMechanism", b =>
@@ -191,7 +194,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     b.HasIndex("BoardGameID");
 
-                    b.ToTable("BoardGame_BoardGameCategories");
+                    b.ToTable("BoardGameCategoryData");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameMechanism", b =>
@@ -217,7 +220,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     b.HasIndex("BoardGameMechanismID");
 
-                    b.ToTable("BoardGame_BoardGameMechanisms");
+                    b.ToTable("BoardGameMechanismData");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", b =>

@@ -115,14 +115,14 @@ namespace BoardGameVoter.Pages.Library
             IsActive = LibraryGame.IsAvailable;
             ReleaseDate = BoardGame.ReleaseDate.GetValueOrDefault(DateTime.MinValue);
 
-            PrimaryCategory = BoardGame.PrimaryCategoryID > 0 ? __BoardGameCategoryRepository.GetByID(BoardGame.PrimaryCategoryID ?? 0)?.Name ?? null : null;
-            PrimaryType = BoardGame.PrimaryTypeID > 0 ? __BoardGameTypeRepository.GetByID(BoardGame.PrimaryTypeID ?? 0)?.Name ?? null : null;
-            PrimaryMechanism = BoardGame.PrimaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.PrimaryMechanismID ?? 0)?.Name ?? null : null;
-            SecondaryCategory = BoardGame.SecondaryCategoryID > 0 ? __BoardGameCategoryRepository.GetByID(BoardGame.SecondaryCategoryID ?? 0)?.Name ?? null : null;
-            SecondaryType = BoardGame.SecondaryTypeID > 0 ? __BoardGameTypeRepository.GetByID(BoardGame.SecondaryTypeID ?? 0)?.Name ?? null : null;
-            SecondaryMechanism = BoardGame.SecondaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.SecondaryMechanismID ?? 0)?.Name ?? null : null;
-            TertiaryCategory = BoardGame.TertiaryCategoryID > 0 ? __BoardGameCategoryRepository.GetByID(BoardGame.TertiaryCategoryID ?? 0)?.Name ?? null : null;
-            TertiaryMechanism = BoardGame.TertiaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.TertiaryMechanismID ?? 0)?.Name ?? null : null;
+            //PrimaryCategory = BoardGame.PrimaryCategoryID > 0 ? __BoardGameCategoryRepository.GetByID(BoardGame.PrimaryCategoryID ?? 0)?.Name ?? null : null;
+            //PrimaryType = BoardGame.PrimaryTypeID > 0 ? __BoardGameTypeRepository.GetByID(BoardGame.PrimaryTypeID ?? 0)?.Name ?? null : null;
+            //PrimaryMechanism = BoardGame.PrimaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.PrimaryMechanismID ?? 0)?.Name ?? null : null;
+            //SecondaryCategory = BoardGame.SecondaryCategoryID > 0 ? __BoardGameCategoryRepository.GetByID(BoardGame.SecondaryCategoryID ?? 0)?.Name ?? null : null;
+            //SecondaryType = BoardGame.SecondaryTypeID > 0 ? __BoardGameTypeRepository.GetByID(BoardGame.SecondaryTypeID ?? 0)?.Name ?? null : null;
+            //SecondaryMechanism = BoardGame.SecondaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.SecondaryMechanismID ?? 0)?.Name ?? null : null;
+            //TertiaryCategory = BoardGame.TertiaryCategoryID > 0 ? __BoardGameCategoryRepository.GetByID(BoardGame.TertiaryCategoryID ?? 0)?.Name ?? null : null;
+            //TertiaryMechanism = BoardGame.TertiaryMechanismID > 0 ? __BoardGameMechanismRepository.GetByID(BoardGame.TertiaryMechanismID ?? 0)?.Name ?? null : null;
         }
 
         //private void PopulateMechanisms()
