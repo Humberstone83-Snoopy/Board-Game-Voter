@@ -4,16 +4,19 @@ using BoardGameVoter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BoardGameVoter.data.migrations.BoardGame
+namespace BoardGameVoter.Data.Migrations.BoardGame
 {
     [DbContext(typeof(BoardGameDBContext))]
-    partial class BoardGameDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221125172151_AddListToEntity")]
+    partial class AddListToEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
