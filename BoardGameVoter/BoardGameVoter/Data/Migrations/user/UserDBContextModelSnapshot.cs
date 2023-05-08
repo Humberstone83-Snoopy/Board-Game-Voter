@@ -61,6 +61,7 @@ namespace BoardGameVoter.data.migrations.user
                         .HasColumnType("int");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
@@ -87,6 +88,7 @@ namespace BoardGameVoter.data.migrations.user
                         .HasColumnType("bit");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UserID")
@@ -130,6 +132,7 @@ namespace BoardGameVoter.data.migrations.user
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
@@ -152,6 +155,7 @@ namespace BoardGameVoter.data.migrations.user
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UserID")
@@ -179,6 +183,7 @@ namespace BoardGameVoter.data.migrations.user
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("UserID")

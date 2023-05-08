@@ -46,3 +46,5 @@
 *.json
 /BoardGameVoter/BoardGameVoter/bin/Debug/net6.0/BoardGameVoter.exe
 *.2
+*.wsuo
+/.vs/VSWorkspaceState.json

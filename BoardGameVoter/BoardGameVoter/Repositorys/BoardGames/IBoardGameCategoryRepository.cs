@@ -1,6 +1,9 @@
-﻿namespace BoardGameVoter.Repositorys.BoardGames
+﻿using BoardGameVoter.Models.EntityModels.BoardGames;
+using BoardGameVoter.Repositorys.Shared;
+
+namespace BoardGameVoter.Repositorys.BoardGames
 {
-    public interface IBoardGameCategoryRepository
+    public interface IBoardGameCategoryRepository : IRepositoryBase<BoardGameCategory, RepositoryLoadOptions>
     {
     }
 }

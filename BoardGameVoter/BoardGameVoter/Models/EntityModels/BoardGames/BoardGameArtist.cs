@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BoardGameVoter.Models.EntityModels.BoardGames
 {
-    [Table("BoardGameTypes")]
-    public class BoardGameType : EntityBase
+    [Table("BoardGameArtists")]
+    public class BoardGameArtist : EntityBase
     {
+        public int BoardGameGeekID { get; set; }
         public string Name { get; set; }
     }
 }

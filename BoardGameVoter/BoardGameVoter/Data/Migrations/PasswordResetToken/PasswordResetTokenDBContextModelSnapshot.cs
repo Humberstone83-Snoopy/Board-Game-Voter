@@ -31,6 +31,7 @@ namespace BoardGameVoter.data.migrations.PasswordResetToken
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UserID")

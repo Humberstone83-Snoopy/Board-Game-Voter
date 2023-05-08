@@ -20,5 +20,10 @@ namespace BoardGameVoter.Repositorys.BoardGames
         {
             return Data.Where(game => game.Title.StartsWith(title)).ToList();
         }
+
+        public BoardGame GetByBoardGameGeekID(int boardGameGeekID)
+        {
+            return Data.FirstOrDefault(game => game.BoardGameGeekID == boardGameGeekID);
+        }
     }
 }

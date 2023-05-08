@@ -54,11 +54,6 @@ namespace BoardGameVoter.Repositorys.Shared
             if (entity == null) { throw new ArgumentNullException(nameof(entity), "Entity can not be null"); }
             try
             {
-                if (entity.UID == Guid.Empty)
-                {
-                    entity.UID = Guid.NewGuid();
-                }
-
                 DBContext.Add(entity);
                 DBContext.SaveChanges();
                 return entity;

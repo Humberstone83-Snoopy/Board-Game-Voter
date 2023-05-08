@@ -44,7 +44,7 @@ namespace BoardGameVoter.Pages.Import
                     dt.Columns.Add("Title", typeof(string));
                     dt.Columns.Add("Date", typeof(string));
                     dt.Columns.Add("Rating", typeof(decimal));
-                    dt.Columns.Add("Description_Short", typeof(string));
+                    dt.Columns.Add("Description", typeof(string));
                     dt.Columns.Add("Minimum_Players", typeof(int));
                     dt.Columns.Add("Maximum_Players", typeof(int));
                     dt.Columns.Add("Minimum_Playtime", typeof(int));
@@ -71,14 +71,14 @@ namespace BoardGameVoter.Pages.Import
                             Title = row["Title"] as string,
                             ReleaseDate = DateTime.Parse("01/01/" + row["Date"] as string),
                             Rating = row["Rating"] as decimal? ?? 0,
-                            Description_Short = row["Description_Short"] as string,
+                            Description = row["Description"] as string,
                             MinimumPlayers = row["Minimum_Players"] as int? ?? 0,
                             MaximumPlayers = row["Maximum_Players"] as int? ?? 0,
                             MinimumPlayTime = row["Minimum_Playtime"] as int? ?? 0,
                             MaximumPlayTime = row["Maximum_Playtime"] as int? ?? 0,
                             AgeRating = row["Age"] as string,
                             Weight = (Weight)(int)Math.Round(row["Weight"] as decimal? ?? 0),
-                            Publisher = row["Publisher"] as string,
+                            //Publisher = row["Publisher"] as string,
                             //PrimaryTypeID = ((row["Type_Primary_ID"] as int? ?? 0) > 0) ? (row["Type_Primary_ID"] as int? ?? 0) : null,
                             //SecondaryTypeID = ((row["Type_Secondary_ID"] as int? ?? 0) > 0) ? (row["Type_Secondary_ID"] as int? ?? 0) : null,
                             //PrimaryCategoryID = ((row["Category_Primary_ID"] as int? ?? 0) > 0) ? (row["Category_Primary_ID"] as int? ?? 0) : null,
@@ -87,7 +87,7 @@ namespace BoardGameVoter.Pages.Import
                             //PrimaryMechanismID = ((row["Mechanic_Primary_ID"] as int? ?? 0) > 0) ? (row["Mechanic_Primary_ID"] as int? ?? 0) : null,
                             //SecondaryMechanismID = ((row["Mechanic_Secondary_ID"] as int? ?? 0) > 0) ? (row["Mechanic_Secondary_ID"] as int? ?? 0) : null,
                             //TertiaryMechanismID = ((row["Mechanic_Tertiary_ID"] as int? ?? 0) > 0) ? (row["Mechanic_Tertiary_ID"] as int? ?? 0) : null,
-                            Description_Long = row["Description_Long"] as string
+                            
                         });
                     }
                     __BoardGameRepository.Add(_Games);

@@ -19,7 +19,6 @@ namespace BoardGameVoter.Pages.Library
         private readonly BoardGameCategoryRepository __BoardGameCategoryRepository;
         private readonly BoardGameMechanismRepository __BoardGameMechanismRepository;
         private readonly BoardGameRepository __BoardGameRepository;
-        private readonly BoardGameTypeRepository __BoardGameTypeRepository;
         private readonly LibraryGameRepository __LibraryGameRepository;
 
         public UpdateModel(IBGVServiceProvider bGVServiceProvider)
@@ -27,7 +26,6 @@ namespace BoardGameVoter.Pages.Library
         {
             __BoardGameCategoryRepository = new BoardGameCategoryRepository(bGVServiceProvider);
             __BoardGameMechanismRepository = new BoardGameMechanismRepository(bGVServiceProvider);
-            __BoardGameTypeRepository = new BoardGameTypeRepository(bGVServiceProvider);
             __BoardGameRepository = new BoardGameRepository(bGVServiceProvider);
             __LibraryGameRepository = new LibraryGameRepository(bGVServiceProvider);
         }
@@ -103,15 +101,14 @@ namespace BoardGameVoter.Pages.Library
 
             Nickname = LibraryGame.Name;
             Title = BoardGame.Title;
-            TagLine = BoardGame.Description_Short;
-            Description = BoardGame.Description_Long;
+            TagLine = BoardGame.Description;
             AgeRating = BoardGame.AgeRating;
             GameWeight = BoardGame.Weight ?? Weight.Undefined;
             MaximumPlayers = BoardGame.MaximumPlayers ?? MinimumPlayers;
             MinimumPlayers = BoardGame.MinimumPlayers;
             MaximumPlayTime = BoardGame.MaximumPlayTime ?? 0;
             MinimumPlayTime = BoardGame.MinimumPlayTime ?? 0;
-            Publisher = BoardGame.Publisher ?? string.Empty;
+            //Publisher = BoardGame.Publisher ?? string.Empty;
             IsActive = LibraryGame.IsAvailable;
             ReleaseDate = BoardGame.ReleaseDate.GetValueOrDefault(DateTime.MinValue);
 

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
+    <PackageReference Include="BoardGamer.BoardGameGeek" Version="0.8.1" />
     <PackageReference Include="CsvHelper" Version="28.0.1" />
     <PackageReference Include="LigerShark.WebOptimizer.Sass" Version="3.0.91" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.2.0" />

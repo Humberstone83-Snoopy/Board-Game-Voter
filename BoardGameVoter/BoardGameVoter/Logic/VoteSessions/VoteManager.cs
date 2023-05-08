@@ -142,8 +142,8 @@ namespace BoardGameVoter.Logic.VoteSessions
                                 LibraryGameID = _Game.ID,
                                 LibraryGameUID = _Game.UID,
                                 Title = _Game.BoardGame.Title,
-                                Description = _Game.BoardGame.Description_Short,
-                                Publisher = _Game.BoardGame.Publisher,
+                                Description = _Game.BoardGame.Description,
+                                //Publisher = _Game.BoardGame.Publisher, //TODO UPDATE
                                 Players = $"{_Game.BoardGame.MinimumPlayers}-{_Game.BoardGame.MaximumPlayers}",
                                 Playtime = $"{_Game.BoardGame.MinimumPlayTime}-{_Game.BoardGame.MaximumPlayTime}mins",
                                 Owner = $"{_Attendee.User.FirstName} {_Attendee.User.LastName}",

@@ -17,8 +17,8 @@ namespace BoardGameVoter.Logic.UserLibrarys
                         ID = libraryGame.ID,
                         IsAvailable = libraryGame.IsAvailable,
                         Title = libraryGame.Name,
-                        Description = libraryGame.BoardGame.Description_Short,
-                        Publisher = libraryGame.BoardGame.Publisher,
+                        Description = libraryGame.BoardGame.Description,
+                        //Publisher = libraryGame.BoardGame.Publisher, //TODO: FIX
                         Players = libraryGame.BoardGame.MinimumPlayers != libraryGame.BoardGame.MaximumPlayers ?
                             $"{libraryGame.BoardGame.MinimumPlayers}-{libraryGame.BoardGame.MaximumPlayers}" : $"{libraryGame.BoardGame.MinimumPlayers}",
                         Playtime = libraryGame.BoardGame.MinimumPlayTime != libraryGame.BoardGame.MaximumPlayTime ?

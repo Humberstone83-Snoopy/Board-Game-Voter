@@ -46,6 +46,7 @@ namespace BoardGameVoter.data.migrations.Location
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");

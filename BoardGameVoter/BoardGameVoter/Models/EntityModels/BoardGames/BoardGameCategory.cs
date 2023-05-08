@@ -6,6 +6,7 @@ namespace BoardGameVoter.Models.EntityModels.BoardGames
     [Table("BoardGameCategories")]
     public class BoardGameCategory : EntityBase
     {
+        public int BoardGameGeekID { get; set; }
         public string Name { get; set; }
     }
 }

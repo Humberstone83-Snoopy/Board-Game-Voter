@@ -30,8 +30,8 @@
                         <td>@_BoardGame.ID</td>
                         <td>@_BoardGame.Title</td>
                         <td>@_BoardGame.ReleaseDate.GetValueOrDefault(new DateTime(9999,1,1)).Year</td>
-                        <td>@_BoardGame.Description_Short</td>
-                        <td>@_BoardGame.Publisher</td>
+                        <td>@_BoardGame.Description</td>
+                        <td></td>
                         <td>@_BoardGame.Rating.GetValueOrDefault(0)</td>
                         <td>@_BoardGame.Weight.GetValueOrDefault(Weight.Undefined)</td>
                         <td><a href="/Library/Add/Existing/@_BoardGame.UID" class="btn btn-primary">+</a></td>

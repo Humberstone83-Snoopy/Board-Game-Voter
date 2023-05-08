@@ -22,7 +22,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Vote", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.Vote", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -37,6 +37,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                         .HasColumnType("int");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VoteSessionAttendeeID")
@@ -52,7 +53,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.ToTable("Votes");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSession", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSession", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -79,6 +80,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                         .HasColumnType("int");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VotesCast")
@@ -89,7 +91,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.ToTable("VoteSessions");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionAttendee", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSessionAttendee", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -98,6 +100,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UserID")
@@ -116,7 +119,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.ToTable("VoteSessionAttendees");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionResult", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSessionResult", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -128,6 +131,7 @@ namespace BoardGameVoter.data.migrations.VoteSession
                         .HasColumnType("int");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VoteSessionID")
@@ -140,9 +144,9 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.ToTable("VoteSessionResults");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.Vote", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.Vote", b =>
                 {
-                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSession", "VoteSession")
+                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSession", "VoteSession")
                         .WithMany()
                         .HasForeignKey("VoteSessionID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -151,9 +155,9 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.Navigation("VoteSession");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionAttendee", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSessionAttendee", b =>
                 {
-                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSession", "VoteSession")
+                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSession", "VoteSession")
                         .WithMany()
                         .HasForeignKey("VoteSessionID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -162,9 +166,9 @@ namespace BoardGameVoter.data.migrations.VoteSession
                     b.Navigation("VoteSession");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessionResult", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSessionResult", b =>
                 {
-                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSession", "VoteSession")
+                    b.HasOne("BoardGameVoter.Models.EntityModels.VoteSessions.VoteSession", "VoteSession")
                         .WithMany()
                         .HasForeignKey("VoteSessionID")
                         .OnDelete(DeleteBehavior.Cascade)

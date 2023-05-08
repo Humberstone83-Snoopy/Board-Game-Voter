@@ -34,14 +34,10 @@ namespace BoardGameVoter.data.migrations.BoardGame
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("BoardGameTypeID")
+                    b.Property<int>("BoardGameGeekID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description_Long")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description_Short")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -57,9 +53,6 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.Property<int>("MinimumPlayers")
                         .HasColumnType("int");
 
-                    b.Property<string>("Publisher")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(18,2)");
 
@@ -71,6 +64,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Weight")
@@ -78,9 +72,31 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BoardGameTypeID");
-
                     b.ToTable("BoardGames");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameArtist", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BoardGameArtists");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameCategory", b =>
@@ -91,16 +107,68 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
                     b.ToTable("BoardGameCategories");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameDesigner", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BoardGameDesigners");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameFamily", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BoardGameFamilies");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameImage", b =>
@@ -119,6 +187,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
@@ -126,6 +195,35 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.HasIndex("BoardGameID");
 
                     b.ToTable("BoardGameImages");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameImplementation", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BoardGameID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BoardGameID");
+
+                    b.ToTable("BoardGameImplementations");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameMechanism", b =>
@@ -136,11 +234,15 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
@@ -148,7 +250,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.ToTable("BoardGameMechanisms");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameType", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGamePublisher", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -156,16 +258,47 @@ namespace BoardGameVoter.data.migrations.BoardGame
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("BoardGameGeekID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
-                    b.ToTable("BoardGameTypes");
+                    b.ToTable("BoardGamePublishers");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameArtist", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameArtistID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BoardGameID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BoardGameArtistID");
+
+                    b.HasIndex("BoardGameID");
+
+                    b.ToTable("BoardGame_BoardGameArtists");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameCategory", b =>
@@ -183,6 +316,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
                         .HasColumnType("int");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
@@ -192,6 +326,60 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.HasIndex("BoardGameID");
 
                     b.ToTable("BoardGame_BoardGameCategories");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameDesigner", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameDesignerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BoardGameID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BoardGameDesignerID");
+
+                    b.HasIndex("BoardGameID");
+
+                    b.ToTable("BoardGame_BoardGameDesigners");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameFamily", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameFamilyID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BoardGameID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BoardGameFamilyID");
+
+                    b.HasIndex("BoardGameID");
+
+                    b.ToTable("BoardGame_BoardGameFamilies");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameMechanism", b =>
@@ -209,6 +397,7 @@ namespace BoardGameVoter.data.migrations.BoardGame
                         .HasColumnType("int");
 
                     b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
@@ -220,13 +409,31 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.ToTable("BoardGame_BoardGameMechanisms");
                 });
 
-            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", b =>
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGamePublisher", b =>
                 {
-                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameType", "BoardGameType")
-                        .WithMany()
-                        .HasForeignKey("BoardGameTypeID");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Navigation("BoardGameType");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BoardGameID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BoardGamePublisherID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BoardGameID");
+
+                    b.HasIndex("BoardGamePublisherID");
+
+                    b.ToTable("BoardGame_BoardGamePublishers");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameImage", b =>
@@ -238,6 +445,32 @@ namespace BoardGameVoter.data.migrations.BoardGame
                         .IsRequired();
 
                     b.Navigation("BoardGame");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameImplementation", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", null)
+                        .WithMany("Implementations")
+                        .HasForeignKey("BoardGameID");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameArtist", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameArtist", "BoardGameArtist")
+                        .WithMany()
+                        .HasForeignKey("BoardGameArtistID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", "BoardGame")
+                        .WithMany("Artists")
+                        .HasForeignKey("BoardGameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BoardGame");
+
+                    b.Navigation("BoardGameArtist");
                 });
 
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameCategory", b =>
@@ -259,6 +492,44 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.Navigation("BoardGameCategory");
                 });
 
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameDesigner", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameDesigner", "BoardGameDesigner")
+                        .WithMany()
+                        .HasForeignKey("BoardGameDesignerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", "BoardGame")
+                        .WithMany("Designers")
+                        .HasForeignKey("BoardGameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BoardGame");
+
+                    b.Navigation("BoardGameDesigner");
+                });
+
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameFamily", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGameFamily", "BoardGameFamily")
+                        .WithMany()
+                        .HasForeignKey("BoardGameFamilyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", "BoardGame")
+                        .WithMany("Families")
+                        .HasForeignKey("BoardGameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BoardGame");
+
+                    b.Navigation("BoardGameFamily");
+                });
+
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGameMechanism", b =>
                 {
                     b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", "BoardGame")
@@ -278,11 +549,40 @@ namespace BoardGameVoter.data.migrations.BoardGame
                     b.Navigation("BoardGameMechanism");
                 });
 
+            modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame_BoardGamePublisher", b =>
+                {
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", "BoardGame")
+                        .WithMany("Publishers")
+                        .HasForeignKey("BoardGameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BoardGameVoter.Models.EntityModels.BoardGames.BoardGamePublisher", "BoardGamePublisher")
+                        .WithMany()
+                        .HasForeignKey("BoardGamePublisherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BoardGame");
+
+                    b.Navigation("BoardGamePublisher");
+                });
+
             modelBuilder.Entity("BoardGameVoter.Models.EntityModels.BoardGames.BoardGame", b =>
                 {
+                    b.Navigation("Artists");
+
                     b.Navigation("Categories");
 
+                    b.Navigation("Designers");
+
+                    b.Navigation("Families");
+
+                    b.Navigation("Implementations");
+
                     b.Navigation("Mechanisms");
+
+                    b.Navigation("Publishers");
                 });
 #pragma warning restore 612, 618
         }

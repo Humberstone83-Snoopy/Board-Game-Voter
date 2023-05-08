@@ -22,7 +22,7 @@ namespace BoardGameVoter.Data.Migrations.BoardGame
             migrationBuilder.RenameColumn(
                 name: "Description",
                 table: "BoardGames",
-                newName: "Description_Short");
+                newName: "Description");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Publisher",
@@ -406,7 +406,7 @@ namespace BoardGameVoter.Data.Migrations.BoardGame
                 table: "BoardGames");
 
             migrationBuilder.RenameColumn(
-                name: "Description_Short",
+                name: "Description",
                 table: "BoardGames",
                 newName: "Description");
 

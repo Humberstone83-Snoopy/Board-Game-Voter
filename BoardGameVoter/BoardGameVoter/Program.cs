@@ -1,8 +1,10 @@
+using BoardGamer.BoardGameGeek.BoardGameGeekXmlApi2;
 using BoardGameVoter.Data;
 using BoardGameVoter.Logic.SessionManagers;
 using BoardGameVoter.Models;
 using BoardGameVoter.Services;
 using BoardGameVoter.Services.DBContextService;
+using BoardGameVoter.Services.GeekService;
 using BoardGameVoter.Services.SessionService;
 using BoardGameVoter.Services.SignInService;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,10 @@ builder.Services.AddWebOptimizer(pipeline =>
     pipeline.AddScssBundle("/css/all.css", "/css/BGV.scss");
 });
 
+// Add BoardGameGeek Client
+//https://github.com/Cobster/BoardGamer.BoardGameGeek
+builder.Services.AddHttpClient<IBoardGameGeekXmlApi2Client, BoardGameGeekXmlApi2Client>();
+
 // Setting up Blob Storage
 builder.Services.Configure<StorageAccountOptions>(builder.Configuration.GetSection("StorageAccount"));
 
@@ -48,6 +54,7 @@ builder.Services.AddScoped<ISignInService, SignInService>();
 builder.Services.AddScoped<IDBContextService, DBContextService>();
 builder.Services.AddScoped<IBGVServiceProvider, BGVServiceProvider>();
 builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<GeekController, GeekController>();
 
 var app = builder.Build();
 
